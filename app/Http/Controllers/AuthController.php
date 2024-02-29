@@ -10,20 +10,20 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login');
+        return view('login.login');
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password');
-        $user = User::where('username', $credentials['username'])->first();
+        // $credentials = $request->only('username', 'password');
+        // $user = User::where('username', $credentials['username'])->first();
 
-        if ($user && $user->password === md5($credentials['password'])) {
-            Auth::login($user);
+        // if ($user && $user->password === md5($credentials['password'])) {
+        //     Auth::login($user);
             return redirect('/dashboard'); // Sesuaikan dengan rute dashboard yang Anda gunakan
-        } else {
-            return redirect('/login')->with('error', 'Invalid credentials');
-        }
+        // } else {
+        //     return redirect('/login')->with('error', 'Invalid credentials');
+        // }
     }
 
     public function logout()

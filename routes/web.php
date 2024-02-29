@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,20 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('Landing page.landing');
 })->name('home');
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
-Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('login', [AuthController::class, 'login']);
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login.login');
+Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::get('dashboard', function () {
-    return view('logout');
-})->middleware('auth.admin'); // Sesuaikan middleware dengan yang dibutuhkan
-
-Route::group(['middleware' => 'auth.admin'], function () {
-    Route::get('/dashboard', function () {
-        return view('logout');
-    });
+    return view('admin.dashboard');
 });
+// ->middleware('auth.admin')
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('profile', [Controller::class, 'showProfile'])->name('profile');
+// Route::group(['middleware' => 'auth.admin'], function () {
+//     Route::get('/dashboard', function () {
+//         return view('logout');
+//     });
+// });
+
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

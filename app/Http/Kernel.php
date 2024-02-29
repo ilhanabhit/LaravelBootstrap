@@ -25,7 +25,7 @@ class Kernel extends HttpKernel
 
         //middleware baru
         // 'cekstatus' => \App\Http\Middleware\CekStatus::class,
-            'auth.admin' => \App\Http\Middleware\AuthenticateUser::class,
+            'auth.admin' => \App\Http\Middleware\AuthController::class,
     ];
 
     protected $middleware = [
