@@ -46,7 +46,6 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Beranda</a></li>
           <li><a class="nav-link scrollto" href="#about">Tentang Kami</a></li>
-          <li><a class="nav-link scrollto" href="#services">Pengumuman</a></li>
           <li><a class="nav-link scrollto" href="#portfolio">Jenis Layanan</a></li>
           <li><a class="nav-link scrollto" href="#contact">Kontak</a></li>
           <li><a class="getstarted scrollto" href="login">Masuk</a></li>
@@ -108,54 +107,6 @@
 
       </div>
     </section><!-- End About Us Section -->
-
-    <!-- ======= Why Us Section ======= -->
-    <section id="services" class="services section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Pengumuman</h2>
-          <p>Kami ingin mengingatkan Anda tentang pentingnya menjaga kesehatan pribadi dan mematuhi langkah-langkah pencegahan yang diberlakukan untuk melindungi diri sendiri dan rekan kerja dari penyebaran penyakit</p>
-        </div>
-
-        <div class="row">
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Judul</a></h4>
-              <p>tes</p>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Judul</a></h4>
-              <p>tes</p>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Judul</a></h4>
-              <p>tes</p>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-layer"></i></div>
-              <h4><a href="">Judul</a></h4>
-              <p>tes</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Why Us Section -->
-
     <!-- ======= Services Section ======= -->
     <section id="portfolio" class="portfolio">
       <section id="why-us" class="why-us section-bg">
@@ -188,7 +139,6 @@
                       </p>
                     </div>
                   </li>
-  
                   <li>
                     <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Poli Gigi Dan Mulut <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                     <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
@@ -197,15 +147,11 @@
                       </p>
                     </div>
                   </li>
-  
                 </ul>
               </div>
-  
             </div>
-  
             <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
           </div>
-  
         </div>
       </section>
       </section>
@@ -214,7 +160,6 @@
     <!-- ======= Team Section ======= -->
     <section id="team" class="team section-bg">
       <div class="container" data-aos="fade-up">
-
         <div class="section-title">
           <h2>Dokter Poli</h2>
           <p>Di sini, Anda bisa bertemu dengan dokter dan mendapatkan berbagai layanan medis, mulai dari Poli Umum Poli Kesehatan Anak dan Ibu dan Poli Gigi Dan Mulut.</p>
@@ -305,38 +250,31 @@
         </div>
 
         <div class="row">
-
-          <div class="col-lg-5 d-flex align-items-stretch">
-            <div class="info">
-              <div class="address">
-                <i class="bi bi-geo-alt"></i>
-                <h4>Lokasi:</h4>
-                <p>F4RF+HQG, Jl. Raya Jatikalen, Pleset, Jatikalen, Kec. Jatikalen, Kabupaten Nganjuk, Jawa Timur 64392</p>
-              </div>
-
-              <div class="email">
-                <i class="bi bi-envelope"></i>
-                <h4>Email:</h4>
-                <p>pkmjatikalen@gmail.com</p>
-              </div>
-
-              <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Telepon:</h4>
-                <p>+62 813-3574-7177</p>
-              </div>
-
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-
+  <div class="col-lg-6 col-md-12 mb-4">
+    <div class="info">
+      <div class="address">
+        <i class="bi bi-geo-alt"></i>
+        <h4>Lokasi:</h4>
+        <p>F4RF+HQG, Jl. Raya Jatikalen, Pleset, Jatikalen, Kec. Jatikalen, Kabupaten Nganjuk, Jawa Timur 64392</p>
       </div>
+      <div class="email">
+        <i class="bi bi-envelope"></i>
+        <h4>Email:</h4>
+        <p>pkmjatikalen@gmail.com</p>
+      </div>
+      <div class="phone">
+        <i class="bi bi-phone"></i>
+        <h4>Telepon:</h4>
+        <p>+62 813-3574-7177</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15860.156137996653!2d112.1244637!3d-7.5090285!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7839811dd9b39b%3A0x50f46a9cbb0aef90!2sKB%20Ceria%20Jatikalen!5e0!3m2!1sen!2sid!4v1647369044114!5m2!1sen!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+</div>
+
     </section><!-- End Contact Section -->
-
-  
-
-   
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

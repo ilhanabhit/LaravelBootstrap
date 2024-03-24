@@ -11,10 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 class akun_admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = "akun_admin";
-    protected $primaryKey = "username";
-    public $incrementing = false; //increment yang ada di sql
-    public $timestamps = false ; 
+    protected $table = "pegawai";
+    protected $primaryKey = "nip";
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +20,7 @@ class akun_admin extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
-        'password',
+        'nip', 'nama', 'email', 'tanggal_lahir', 'jenis_kelamin', 'jabatan', 'kata_sandi',
     ];
 
     /**
@@ -32,7 +29,7 @@ class akun_admin extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'kata_sandi',
         'remember_token',
     ];
 

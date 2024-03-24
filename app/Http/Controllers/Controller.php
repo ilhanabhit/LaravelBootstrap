@@ -14,3 +14,4 @@ class Controller extends BaseController
         return view('profile.profile');
     }
 }
+
