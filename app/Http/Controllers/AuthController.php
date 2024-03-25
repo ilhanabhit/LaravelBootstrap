@@ -23,7 +23,7 @@ class AuthController extends Controller
         Auth::login($user);
         return redirect()->route('dashboard');
     } else {
-        return redirect('login')->with('errorlogin', 'username atau password salah');
+        return redirect('login')->with('errorlogin', 'NIP atau password salah');
     }
 }
 

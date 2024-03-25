@@ -15,7 +15,7 @@
                     <!-- Profile picture image-->
                     <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                     <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <div class="small font-italic text-muted mb-4">JPG atau PNG tidak lebih besar dari 5 MB</div>
                     <!-- Profile picture upload button-->
                     <button class="btn btn-primary" type="button">Upload Gambar</button>
                 </div>
@@ -75,7 +75,8 @@
 
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="button">Edit Data</button>
+                        <button class="btn btn-primary" type="submit" form="form-id">Edit Data</button>
+
                         <a class="btn btn-primary" href="{{ url()->previous() }}">Kembali</a>
 
                     </form>

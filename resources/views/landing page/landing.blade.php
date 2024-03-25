@@ -90,7 +90,7 @@
         <div class="row content" style="margin-left: 100px; ">
           <img src="assets/img/" alt="">  
             <p>
-              Pada sistem website ini mempunyai beberapa fitur yang dapat membantu untuk mengelola kebutuhan petugas klinik
+              Pada sistem website ini mempunyai beberapa fitur yang dapat membantu untuk mengelola kebutuhan petugas Puskesmas
             </p>
             <p>
               Sistem ini memberikan kemudahan dalam melakukan tugas-tugas administratif, seperti pencatatan data pasien, penjadwalan janji, dan manajemen informasi medis. Selain itu, KlinikKlik juga menawarkan 
@@ -98,8 +98,8 @@
               termasuk pelaporan kinerja dan analisis data untuk membantu pengambilan keputusan yang lebih baik.
             </p>
             <p>
-              Dengan KlinikKlik, petugas klinik dapat mengoptimalkan waktu dan sumber daya, mengurangi potensi kesalahan dalam pencatatan data, serta meningkatkan pelayanan kepada pasien. 
-              Sistem ini menjadi solusi terintegrasi bagi klinik-klinik modern yang ingin meningkatkan produktivitas dan kualitas layanan kesehatan yang mereka berikan.
+              Dengan PUSLINE, petugas puskesmas dapat mengoptimalkan waktu dan sumber daya, mengurangi potensi kesalahan dalam pencatatan data, serta meningkatkan pelayanan kepada pasien. 
+              Sistem ini menjadi solusi terintegrasi bagi Puskesmas modern yang ingin meningkatkan produktivitas dan kualitas layanan kesehatan yang mereka berikan.
             </p>
             
           </div>

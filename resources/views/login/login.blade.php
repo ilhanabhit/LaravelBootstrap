@@ -30,6 +30,7 @@
                 <input type="text" name="jabatan" placeholder="Jabatan">
                 <input type="password" name="kata_sandi" placeholder="Kata Sandi">
                 <button type="submit">Daftar</button>
+                
             </form>
 
         </div>
@@ -41,7 +42,7 @@
                 <input type="number" placeholder="NIP (Nomor Induk Pegawai)" id="nip" name="nip">
                 <input type="password" placeholder="Kata Sandi" id="password" name="password"> <!-- Perubahan pada atribut name di sini -->
                 <a href="">Lupa Password?</a>
-                <input type="submit" id="submit" value="masuk"></input>
+                <input type="submit" id="submit" value="Masuk" style="background-color: #37517e; color: white;"></input>
 
                 @if(session('errorlogin'))
                 <span class="text-danger">
