@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="assets/img/oke.png" class="img-fluid animated" alt="">
+          <img src="assets/img/hp.png" style="height: 450px; margin-left: 200px;" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@
               Pada sistem website ini mempunyai beberapa fitur yang dapat membantu untuk mengelola kebutuhan petugas Puskesmas
             </p>
             <p>
-              Sistem ini memberikan kemudahan dalam melakukan tugas-tugas administratif, seperti pencatatan data pasien, penjadwalan janji, dan manajemen informasi medis. Selain itu, KlinikKlik juga menawarkan 
+              Sistem ini memberikan kemudahan dalam melakukan tugas-tugas administratif, seperti pencatatan data pasien, penjadwalan janji, dan manajemen informasi medis. Selain itu, PUSLINE juga menawarkan 
               fitur-fitur yang mendukung aspek keberlanjutan operasional klinik, 
               termasuk pelaporan kinerja dan analisis data untuk membantu pengambilan keputusan yang lebih baik.
             </p>

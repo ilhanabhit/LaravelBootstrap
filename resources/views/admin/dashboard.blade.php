@@ -20,6 +20,7 @@
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
@@ -39,6 +40,7 @@
                     <div class="mb-3">
                         <h4>Beranda Admin</h4>
                     </div>
+                    
                     <div class="row">
                         <div class="col-12 col-md-6 d-flex">
                             <div class="card flex-fill border-0 illustration">

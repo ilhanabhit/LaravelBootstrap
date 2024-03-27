@@ -39,42 +39,32 @@
                     <div class="mb-3">
                         <h4>Data Pasien</h4>
                     </div>
-                    <form action='' method='post'>
-                        <div class="my-3 p-3 bg-body rounded shadow-sm">
-                            <div class="mb-3 row">
-                                <label for="nim" class="col-sm-2 col-form-label">NIK</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name='NIK' id="nim">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="nama" class="col-sm-2 col-form-label">Nama</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name='nama' id="nama">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="jurusan" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                                <div class="col-sm-10">
-                                    <input type="date" class="form-control" name="tanggal_Lahir" id="tanggal_Lahir">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="jurusan" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name='Jenis Kelamin' id="jurusan">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="jurusan" class="col-sm-2 col-form-label">No BPJS</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name=' No BPJS' id="jurusan">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="jurusan" class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="submit">+ Tambah Data</button></div>
-                            </div>
+                    <form action="{{ route('data-pasien') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nik" class="form-label">NIK *</label>
+                            <input type="number" class="form-control" id="nik" name="nik" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama *</label>
+                            <input type="text" class="form-control" id="nama" name="nama" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir *</label>
+                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin *</label>
+                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_bpjs" class="form-label">Nomor BPJS</label>
+                            <input type="text" class="form-control" id="no_bpjs" name="no_bpjs">
+                        </div>
+                        <a href="{{ route('data-pasien') }}" class="btn btn-primary">+ Tambah Data</a>
                     </form>
                 </div>
                 <!-- AKHIR FORM -->
@@ -111,7 +101,6 @@
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
                 <!-- AKHIR DATA -->
             </main>

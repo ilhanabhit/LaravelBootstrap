@@ -2,24 +2,26 @@
 
 namespace App\Models;
 
-$patients = Patient::all();
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Patient extends Model
+class pasien extends Model
 {
     use HasFactory;
 
-    protected $tsble = '';
+    protected $table = 'patients';
 
     protected $fillable = [
         'NIK',
         'nama',
         'tanggal_lahir',
-        'jenis_kelasmin',
+        'jenis_kelamin', // Diperbaiki typo di sini
         'no_bpjs',
         'email',
     ];
-}
 
+    public static function getAllPatients()
+    {
+        return self::all();
+    }
+}
