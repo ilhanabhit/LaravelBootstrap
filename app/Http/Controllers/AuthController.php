@@ -26,8 +26,6 @@ class AuthController extends Controller
         return redirect('login')->with('errorlogin', 'NIP atau password salah');
     }
 }
-
-
     public function logout()
     {
         Auth::logout();

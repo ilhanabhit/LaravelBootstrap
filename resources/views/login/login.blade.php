@@ -15,23 +15,33 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="{{ route('register') }}" method="post">
+            <form id="form-register" action="{{ route('register') }}" method="post">
                 @csrf
                 <h1 style="margin-bottom: 10px;">Buat Akun</h1>
-                <span>Isi Formulir Tersebut</span>
+                <span>Lupa Sandi</span>
                 <input type="number" name="nip" placeholder="NIP">
-                <input type="text" name="nama" placeholder="Nama">
-                <input type="email" name="email" placeholder="Email">
-                <input type="date" id="tanggal_lahir" name="tanggal_lahir">
-                <select name="jenis_kelamin" class="form-select">
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
-                <input type="text" name="jabatan" placeholder="Jabatan">
-                <input type="password" name="kata_sandi" placeholder="Kata Sandi">
-                <button type="submit">Daftar</button>
-                
+                <input type="password" name="kata_sandi" id="kata_sandi" placeholder="Kata Sandi Baru">
+                <input type="password" name="konfirmasi_kata_sandi" id="konfirmasi_kata_sandi" placeholder="Konfirmasi Kata Sandi">
+                <p id="pesan_konfirmasi" style="color: red; display: none;">Konfirmasi kata sandi tidak cocok!</p>
+                <button type="submit" id="submit_button" disabled>Konfirmasi</button>
             </form>
+
+            <script>
+                document.getElementById("konfirmasi_kata_sandi").addEventListener("keyup", function() {
+                    var kataSandiBaru = document.getElementById("kata_sandi").value;
+                    var konfirmasiKataSandi = this.value;
+                    var submitButton = document.getElementById("submit_button");
+                    var pesanKonfirmasi = document.getElementById("pesan_konfirmasi");
+
+                    if (kataSandiBaru === konfirmasiKataSandi) {
+                        submitButton.disabled = false;
+                        pesanKonfirmasi.style.display = "none";
+                    } else {
+                        submitButton.disabled = true;
+                        pesanKonfirmasi.style.display = "block";
+                    }
+                });
+            </script>
 
         </div>
         <div class="form-container sign-in">
@@ -41,7 +51,6 @@
                 <span>Masuk Dengan NIP dan Kata Sandi</span>
                 <input type="number" placeholder="NIP (Nomor Induk Pegawai)" id="nip" name="nip">
                 <input type="password" placeholder="Kata Sandi" id="password" name="password"> <!-- Perubahan pada atribut name di sini -->
-                <a href="">Lupa Password?</a>
                 <input type="submit" id="submit" value="Masuk" style="background-color: #37517e; color: white;"></input>
 
                 @if(session('errorlogin'))
@@ -61,8 +70,8 @@
                 </div>
                 <div class="toggle-panel toggle-right">
                     <h1>Selamat Datang</h1>
-                    <p>Isi pendaftaran dengan informasi yang diperlukan seperti NIP, Nama, Tanggal Lahir,Jenis Kelamin,Jabatan,Email,Kata Sandi yang aman.</p>
-                    <button class="hidden" id="register">Buat Akun</button>
+                    <p>Klik "Lupa Kata Sandi" di bawah </p>
+                    <button class="hidden" id="register">Lupa Sandi</button>
                 </div>
             </div>
         </div>

@@ -37,7 +37,6 @@
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
       <img src="assets/img/logo kemenkes 1.png" alt="" style="width: 50px; margin-right: 20px;">
-      <img src="assets/img/image 1464.png" alt="" style="width: 50px; margin-right: 20px;">
       <h1 class="logo me-auto" style="margin-left: 10px;"><a href="index.html">PUSLINE</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->

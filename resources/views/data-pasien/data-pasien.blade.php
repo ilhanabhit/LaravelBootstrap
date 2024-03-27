@@ -39,62 +39,81 @@
                     <div class="mb-3">
                         <h4>Data Pasien</h4>
                     </div>
-                    <!-- START DATA -->
-                    <div class="my-3 p-3 bg-body rounded shadow-sm">
-                        <!-- FORM PENCARIAN -->
-                        <div class="pb-3">
-                            <form class="d-flex" action="" method="get">
-                                <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-                                <button class="btn btn-secondary" type="submit">Cari</button>
-                            </form>
-                        </div>
+                    <form action='' method='post'>
+                        <div class="my-3 p-3 bg-body rounded shadow-sm">
+                            <div class="mb-3 row">
+                                <label for="nim" class="col-sm-2 col-form-label">NIK</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name='NIK' id="nim">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name='nama' id="nama">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="jurusan" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" name="tanggal_Lahir" id="tanggal_Lahir">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="jurusan" class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name='Jenis Kelamin' id="jurusan">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="jurusan" class="col-sm-2 col-form-label">No BPJS</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name=' No BPJS' id="jurusan">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="jurusan" class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="submit">+ Tambah Data</button></div>
+                            </div>
+                    </form>
+                </div>
+                <!-- AKHIR FORM -->
 
-                        <!-- TOMBOL TAMBAH DATA -->
-                        <div class="pb-3">
-                            <a href='' class="btn btn-primary">+ Tambah Data</a>
-                        </div>
-
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="col-md-1">no</th>
-                                    <th class="col-md-1">NIK</th>
-                                    <th class="col-md-1">Nama Pasien</th>
-                                    <th class="col-md-1">Jenis Kelamin</th>
-                                    <th class="col-md-1">No BPJS</th>
-                                    <th class="col-md-1">Email</th>
-                                    <th class="col-md-1" style="min-width: 100px;">aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>08363742837</td>
-                                    <td>Ani</td>
-                                    <td>perempuan</td>
-                                    <td>8176473264</td>
-                                    <td>iagsf@gmail.com</td>
-                                    <td>
-                                        <a href='' class="btn btn-warning btn-sm">Edit</a>
-                                        <a href='' class="btn btn-danger btn-sm">Del</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>08363742837</td>
-                                    <td>Ani</td>
-                                    <td>perempuan</td>
-                                    <td>8176473264</td>
-                                    <td>iagsf@gmail.com</td>
-                                    <td>
-                                        <a href='' class="btn btn-warning btn-sm">Edit</a>
-                                        <a href='' class="btn btn-danger btn-sm">Del</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- START DATA -->
+                <div class="my-3 p-3 bg-body rounded shadow-sm">
+                    <!-- FORM PENCARIAN -->
+                    <div class="pb-3">
+                        <form class="d-flex" action="" method="get">
+                            <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
+                            <button class="btn btn-secondary" type="submit">Cari</button>
+                        </form>
                     </div>
-                    <!-- AKHIR DATA -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">No</th>
+                                <th class="col-md-3">NIM</th>
+                                <th class="col-md-4">Nama</th>
+                                <th class="col-md-2">Jurusan</th>
+                                <th class="col-md-2">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1001</td>
+                                <td>Ani</td>
+                                <td>Ilmu Komputer</td>
+                                <td>
+                                    <a href='' class="btn btn-warning btn-sm">Edit</a>
+                                    <a href='' class="btn btn-danger btn-sm">Del</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- AKHIR DATA -->
             </main>
             <a href="#" class="theme-toggle">
                 <i class="fa-regular fa-moon"></i>

@@ -11,23 +11,15 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'nip' => 'required|unique:pegawai,nip',
-            'nama' => 'required',
-            'email' => 'required|email|unique:pegawai,email',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required',
-            'jabatan' => 'required',
-            'kata_sandi' => 'required|min:6',
+            'nip' => 'required|',
+            'kata_sandi' => 'required|',
+            'konfirmasi_kata_sandi' => 'required',
         ]);
 
-        $pegawai = new akun_admin();
-        $pegawai->nip = $request->nip;
-        $pegawai->nama = $request->nama;
-        $pegawai->email = $request->email;
-        $pegawai->tanggal_lahir = $request->tanggal_lahir;
-        $pegawai->jenis_kelamin = $request->jenis_kelamin;
-        $pegawai->jabatan = $request->jabatan;
-        $pegawai->kata_sandi = $request->kata_sandi;
+        $pegawai = akun_admin::find($request->nip);
+        // $pegawai->nip = $request->nip;
+        $pegawai->kata_sandi = $request->konfirmasi_kata_sandi;
+        // $pegawai->konfirmasi_password = $request->konfirmasi_password;
         $pegawai->save();
 
         return redirect()->route('login')->with('success', 'Akun berhasil dibuat. Silakan login.');

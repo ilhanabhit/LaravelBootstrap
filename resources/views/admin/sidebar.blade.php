@@ -2,7 +2,7 @@
             <!-- Content For Sidebar -->
             <div class="h-100" style="background-color:#37517e ;">
                 <div class="sidebar-logo">
-                    <img src="{{ asset('assets/img/image 1464.png') }}" width="50px">
+                    <img src="{{ asset('assets/img/renaldi.png') }}" width="50px">
                     <a style="margin-left: 10px; color: white;">PUSLINE</a>
                 </div>
                 <ul class="sidebar-nav">
@@ -18,14 +18,10 @@
                             <i class="fa-solid fa-user-injured pe-2"></i>
                             Data Pasien
                         </a>
-                        <a href="{{ route('data-pegawai')}}" class="sidebar-link">
-                            <i class="fa-solid fa-address-card pe-2"></i>
-                            Data Pegawai
-                        </a>
                     <li class="sidebar-item">
                         <a href="{{ route('rekam-medik')}}" class="sidebar-link">
                             <i class="fa-solid fa-notes-medical pe-2"></i>
-                            Rekam Medik
+                            Rekam Medis
                         </a>
                     <li class="sidebar-item">
                     <li class="sidebar-item">
