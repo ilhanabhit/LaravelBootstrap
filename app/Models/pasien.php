@@ -5,23 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use function Laravel\Prompts\table;
+
 class pasien extends Model
 {
     use HasFactory;
 
-    protected $table = 'patients';
+    protected $table = 'masyarakat';
 
     protected $fillable = [
-        'NIK',
+        'nik',
         'nama',
         'tanggal_lahir',
         'jenis_kelamin', // Diperbaiki typo di sini
-        'no_bpjs',
-        'email',
+        'no_bpjs'
     ];
 
     public static function getAllPatients()
     {
         return self::all();
+    }
+
+    public static function getdata(){
+        return self::all();
+
     }
 }

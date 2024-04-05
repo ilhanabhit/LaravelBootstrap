@@ -3,6 +3,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\menusidebar;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,3 +52,7 @@ Route::get('artikel', [menusidebar::class, 'artikel'])->name('artikel');
 
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::post('data-pasien/insert',[PasienController::class, 'insert'])->name('insertpasien');
+Route::post('data-pasien/delete', [PasienController::class, 'delete'])->name('deletepasien');

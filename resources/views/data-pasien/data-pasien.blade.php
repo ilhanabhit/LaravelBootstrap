@@ -39,7 +39,24 @@
                     <div class="mb-3">
                         <h4>Data Pasien</h4>
                     </div>
-                    <form action="{{ route('data-pasien') }}" method="POST">
+                    <!-- error -->
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    <!-- success -->
+                    @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif
+                    <form action="{{ route('insertpasien') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="nik" class="form-label">NIK *</label>
@@ -64,9 +81,11 @@
                             <label for="no_bpjs" class="form-label">Nomor BPJS</label>
                             <input type="text" class="form-control" id="no_bpjs" name="no_bpjs">
                         </div>
-                        <a href="{{ route('data-pasien') }}" class="btn btn-primary">+ Tambah Data</a>
+                        <button type="submit" class="btn btn-primary">+ Tambah Data</button>
                     </form>
+
                 </div>
+
                 <!-- AKHIR FORM -->
 
                 <!-- START DATA -->
@@ -79,27 +98,35 @@
                         </form>
                     </div>
                     <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th class="col-md-1">No</th>
-                                <th class="col-md-3">NIM</th>
-                                <th class="col-md-4">Nama</th>
-                                <th class="col-md-2">Jurusan</th>
-                                <th class="col-md-2">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1001</td>
-                                <td>Ani</td>
-                                <td>Ilmu Komputer</td>
-                                <td>
-                                    <a href='' class="btn btn-warning btn-sm">Edit</a>
-                                    <a href='' class="btn btn-danger btn-sm">Del</a>
-                                </td>
-                            </tr>
-                        </tbody>
+                    <thead>
+        <tr>
+            <th>NIK</th>
+            <th>Nama</th>
+            <th>Tanggal Lahir</th>
+            <th>Jenis Kelamin</th>
+            <th>No. BPJS</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($tabel as $pasien)
+        <tr>
+            <td>{{ $pasien->nik }}</td>
+            <td>{{ $pasien->nama }}</td>
+            <td>{{ $pasien->tanggal_lahir }}</td>
+            <td>{{ $pasien->jenis_kelamin }}</td>
+            <td>{{ $pasien->no_bpjs }}</td>
+            <td>
+                <form action="{{ route('deletepasien') }}" method="post">
+                    @csrf
+                    <input  value="{{ $pasien->nik }}" type="hidden" name="nik">
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+
                     </table>
                 </div>
                 <!-- AKHIR DATA -->

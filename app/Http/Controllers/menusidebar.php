@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\pasien;
 use Illuminate\Http\Request;
 
 class menusidebar extends Controller
@@ -16,7 +16,12 @@ class menusidebar extends Controller
     }
     public function dataPasien()
     {
-        return view('data-pasien.data-pasien');
+        $tabel = pasien::getdata();
+
+        return view('data-pasien.data-pasien',
+    [
+        'tabel' => $tabel,
+    ]);
     }
 
     public function datapegawai()

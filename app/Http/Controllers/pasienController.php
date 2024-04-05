@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\pasien;
-
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PasienController extends Controller
 {
@@ -71,39 +72,59 @@ class PasienController extends Controller
         return view('data-pasien.edit', compact('pasien'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function insert(Request $request)
     {
-        // Validasi input sesuai kebutuhan
-        $validatedData = $request->validate([
-            'nik' => 'required|string|max:255',
-            'nama' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'no_bpjs' => 'required|string|max:255',
-        ]);
+        try {
+            // Validasi input sesuai kebutuhan
+            $validatedData = $request->validate([
+                'nik' => 'required|numeric',
+                'nama' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+                'no_bpjs' => 'nullable|string|max:255',
+            ]);
 
-        // Ambil data pasien berdasarkan ID
-        $pasien = pasien::findOrFail($id);
-        // Update data pasien dengan data baru
-        $pasien->update($validatedData);
+            // Memasukkan data pasien baru
+            $pasien = pasien::create($validatedData);
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('pasien.index')->with('success', 'Data pasien berhasil diperbarui!');
+        Session::flash('success', 'Data pasien berhasil disimpan!');
+
+        // Redirect ke halaman index dengan notifikasi success
+        return redirect()->route('data-pasien');
+        } catch (QueryException $e) {
+            // Tangkap eksepsi query exception dan ambil pesan kesalahannya
+            $sqlErrorMessage = $e->getMessage();
+
+            // Kembalikan ke halaman sebelumnya dengan pesan error SQL
+            return back()->withErrors('Gagal menyimpan data pasien. Error SQL: ' . $sqlErrorMessage);
+        }
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(Request $request)
     {
-        // Hapus data pasien berdasarkan ID
-        $pasien = pasien::findOrFail($id);
-        $pasien->delete();
+        try{
+    $nik = $request->input('nik');
+
+    // Hapus data pasien dari database
+    pasien::where('nik', $nik)->delete();
+
+        Session::flash('success', 'Data pasien berhasil dihapus!');
 
         // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('pasien.index')->with('success', 'Data pasien berhasil dihapus!');
+        return redirect()->route('data-pasien');
+    }catch (QueryException $e) {
+        // Tangkap eksepsi query exception dan ambil pesan kesalahannya
+        $sqlErrorMessage = $e->getMessage();
+
+        // Kembalikan ke halaman sebelumnya dengan pesan error SQL
+        return back()->withErrors('Gagal menghapus data pasien. Error SQL: ' . $sqlErrorMessage);
+    }
     }
 }
