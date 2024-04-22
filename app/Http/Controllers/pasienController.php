@@ -87,12 +87,18 @@ class PasienController extends Controller
     {
         // Validasi input sesuai kebutuhan
         $validatedData = $request->validate([
-            'nik' => 'required|string|max:255',
+            'nik' => 'required|string|size:16|regex:/^\d+$/',
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'no_bpjs' => 'max:255',
+            'no_bpjs' => 'nullable|size:11|regex:/^\d+$/',
+        ], [
+            'nik.size' => 'NIK harus terdiri dari 16 angka.',
+            'nik.regex' => 'NIK harus terdiri dari angka saja.',
+            'no_bpjs.size' => 'Nomor BPJS harus terdiri dari 11 angka.',
+            'no_bpjs.regex' => 'Nomor BPJS harus terdiri dari angka saja.',
         ]);
+
 
         // Memeriksa apakah nama pasien sudah ada dalam database
         $existingPasien = Pasien::where('nama', $validatedData['nama'])->first();

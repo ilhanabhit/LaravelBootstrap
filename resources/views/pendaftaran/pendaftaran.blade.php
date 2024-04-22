@@ -94,10 +94,9 @@
 
                             <!-- FORM PENCARIAN -->
                             <div class="pb-3" style="margin-top: 20px;">
-                                <form class="d-flex" action="" method="get">
+                               
                                     <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-                                    <button class="btn btn-secondary" type="submit">Cari</button>
-                                </form>
+    
                             </div>
 
                             <!-- TABEL DATA -->
@@ -140,6 +139,25 @@
                     </div>
                 </div>
             </main>
+            <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var input = document.querySelector('input[name="katakunci"]');
+                        var rows = document.querySelectorAll('tbody tr');
+
+                        input.addEventListener("input", function() {
+                            var keyword = input.value.toLowerCase();
+
+                            rows.forEach(function(row) {
+                                var nik = row.querySelector('td:first-child').innerText.toLowerCase(); // Ambil nilai NIK di kolom pertama
+                                if (nik.includes(keyword)) {
+                                    row.style.display = "";
+                                } else {
+                                    row.style.display = "none";
+                                }
+                            });
+                        });
+                    });
+                </script>
 
 
 
