@@ -43,11 +43,19 @@ class PasienController extends Controller
             'no_bpjs' => 'required|string|max:255',
         ]);
 
-        // Simpan data ke dalam database
-        Pasien::create($validatedData);
+        // Memeriksa apakah nama pasien sudah ada dalam database
+        $existingPasien = Pasien::where('nama', $validatedData['nama'])->first();
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('pasien.index')->with('success', 'Data pasien berhasil ditambahkan!');
+        if ($existingPasien) {
+            // Jika nama pasien sudah ada, kembalikan pesan kesalahan
+            return redirect()->route('pasien.index')->with('error', 'Data pasien dengan nama tersebut sudah ada!');
+        } else {
+            // Jika nama pasien belum ada, tambahkan data baru ke database
+            Pasien::create($validatedData);
+
+            // Redirect ke halaman index dengan pesan sukses
+            return redirect()->route('pasien.index')->with('success', 'Data pasien berhasil ditambahkan!');
+        }
     }
 
     /**
@@ -73,31 +81,37 @@ class PasienController extends Controller
     }
 
 
+
+
     public function insert(Request $request)
     {
-        try {
-            // Validasi input sesuai kebutuhan
-            $validatedData = $request->validate([
-                'nik' => 'required|numeric',
-                'nama' => 'required|string|max:255',
-                'tanggal_lahir' => 'required|date',
-                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-                'no_bpjs' => 'nullable|string|max:255',
-            ]);
+        // Validasi input sesuai kebutuhan
+        $validatedData = $request->validate([
+            'nik' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'no_bpjs' => 'max:255',
+        ]);
 
-            // Memasukkan data pasien baru
-            $pasien = pasien::create($validatedData);
+        // Memeriksa apakah nama pasien sudah ada dalam database
+        $existingPasien = Pasien::where('nama', $validatedData['nama'])->first();
 
-        Session::flash('success', 'Data pasien berhasil disimpan!');
+        if ($existingPasien) {
+            // Jika nama pasien sudah ada, kembalikan pesan kesalahan
+            Session::flash('error', 'Data pasien sudah ada');
 
-        // Redirect ke halaman index dengan notifikasi success
-        return redirect()->route('data-pasien');
-        } catch (QueryException $e) {
-            // Tangkap eksepsi query exception dan ambil pesan kesalahannya
-            $sqlErrorMessage = $e->getMessage();
+            // Redirect ke halaman index dengan notifikasi success
+            return redirect()->route('data-pasien');
+        } else {
+            // Jika nama pasien belum ada, tambahkan data baru ke database
+            Pasien::create($validatedData);
 
-            // Kembalikan ke halaman sebelumnya dengan pesan error SQL
-            return back()->withErrors('Gagal menyimpan data pasien. Error SQL: ' . $sqlErrorMessage);
+            // Redirect ke halaman index dengan pesan sukses
+            Session::flash('success', 'Data pasien berhasil disimpan!');
+
+            // Redirect ke halaman index dengan notifikasi success
+            return redirect()->route('data-pasien');
         }
     }
 
@@ -109,22 +123,22 @@ class PasienController extends Controller
      */
     public function delete(Request $request)
     {
-        try{
-    $nik = $request->input('nik');
+        try {
+            $nik = $request->input('nik');
 
-    // Hapus data pasien dari database
-    pasien::where('nik', $nik)->delete();
+            // Hapus data pasien dari database
+            pasien::where('nik', $nik)->delete();
 
-        Session::flash('success', 'Data pasien berhasil dihapus!');
+            Session::flash('success', 'Data pasien berhasil dihapus!');
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('data-pasien');
-    }catch (QueryException $e) {
-        // Tangkap eksepsi query exception dan ambil pesan kesalahannya
-        $sqlErrorMessage = $e->getMessage();
+            // Redirect ke halaman index dengan pesan sukses
+            return redirect()->route('data-pasien');
+        } catch (QueryException $e) {
+            // Tangkap eksepsi query exception dan ambil pesan kesalahannya
+            $sqlErrorMessage = $e->getMessage();
 
-        // Kembalikan ke halaman sebelumnya dengan pesan error SQL
-        return back()->withErrors('Gagal menghapus data pasien. Error SQL: ' . $sqlErrorMessage);
-    }
+            // Kembalikan ke halaman sebelumnya dengan pesan error SQL
+            return back()->withErrors('Gagal menghapus data pasien. Error SQL: ' . $sqlErrorMessage);
+        }
     }
 }

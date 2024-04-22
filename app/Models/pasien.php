@@ -21,13 +21,12 @@ class pasien extends Model
         'no_bpjs'
     ];
 
-    public static function getAllPatients()
+    public static function getAllPasien()
     {
         return self::all();
     }
 
     public static function getdata(){
         return self::all();
-
     }
 }

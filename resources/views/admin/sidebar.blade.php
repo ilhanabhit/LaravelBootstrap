@@ -19,13 +19,13 @@
                             Data Pasien
                         </a>
                     <li class="sidebar-item">
-                        <a href="{{ route('rekam-medik')}}" class="sidebar-link">
+                        <a href="{{ route('rekam-medis')}}" class="sidebar-link">
                             <i class="fa-solid fa-notes-medical pe-2"></i>
                             Rekam Medis
                         </a>
                     <li class="sidebar-item">
                     <li class="sidebar-item">
-                        <a href="{{ route ('antrian')}}" class="sidebar-link">
+                        <a href="{{ route ('pendaftaran')}}" class="sidebar-link">
                             <i class="fa-solid fa-ticket-alt pe-2"></i>
                             Antrian
                         </a>
@@ -36,7 +36,7 @@
                         <i class="fa-solid fa-newspaper pe-2"></i>
                         Artikel
                     </a>
-
-                    </ul>
+                 </ul>
+                 
             </div>
         </aside>

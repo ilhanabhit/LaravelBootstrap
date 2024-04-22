@@ -56,6 +56,11 @@
                         {{ Session::get('success') }}
                     </div>
                     @endif
+                    @if (Session::has('error'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('error') }}
+                    </div>
+                    @endif
                     <form action="{{ route('insertpasien') }}" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -79,7 +84,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="no_bpjs" class="form-label">Nomor BPJS</label>
-                            <input type="text" class="form-control" id="no_bpjs" name="no_bpjs">
+                            <input type="number" class="form-control" id="no_bpjs" name="no_bpjs">
                         </div>
                         <button type="submit" class="btn btn-primary">+ Tambah Data</button>
                     </form>
@@ -91,45 +96,67 @@
                 <!-- START DATA -->
                 <div class="my-3 p-3 bg-body rounded shadow-sm">
                     <!-- FORM PENCARIAN -->
-                    <div class="pb-3">
-                        <form class="d-flex" action="" method="get">
-                            <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-                            <button class="btn btn-secondary" type="submit">Cari</button>
-                        </form>
+                    <div class="pb-3" style="margin-top: 20px;">
+                        <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
                     </div>
                     <table class="table table-striped">
-                    <thead>
-        <tr>
-            <th>NIK</th>
-            <th>Nama</th>
-            <th>Tanggal Lahir</th>
-            <th>Jenis Kelamin</th>
-            <th>No. BPJS</th>
-            <th>Detail</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($tabel as $pasien)
-        <tr>
-            <td>{{ $pasien->nik }}</td>
-            <td>{{ $pasien->nama }}</td>
-            <td>{{ $pasien->tanggal_lahir }}</td>
-            <td>{{ $pasien->jenis_kelamin }}</td>
-            <td>{{ $pasien->no_bpjs }}</td>
-            <td>
-                <form action="{{ route('deletepasien') }}" method="post">
-                    @csrf
-                    <input  value="{{ $pasien->nik }}" type="hidden" name="nik">
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
+                        <thead>
+                            <tr>
+                                <th>NIK</th>
+                                <th>Nama</th>
+                                <th>Tanggal Lahir</th>
+                                <th>Jenis Kelamin</th>
+                                <th>No. BPJS</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($tabel as $pasien)
+                            <tr>
+                                <td>{{ $pasien->nik }}</td>
+                                <td>{{ $pasien->nama }}</td>
+                                <td>{{ $pasien->tanggal_lahir }}</td>
+                                <td>{{ $pasien->jenis_kelamin }}</td>
+                                <td>{{ $pasien->no_bpjs }}</td>
+                                <td>
+                                    <form id="deleteForm" action="{{ route('deletepasien') }}" method="post">
+                                        @csrf
+                                        <input value="{{ $pasien->nik }}" type="hidden" name="nik">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirmDelete()">Hapus</button>
+                                    </form>
 
+                                    <script>
+                                        function confirmDelete() {
+                                            return confirm("Apakah Anda yakin ingin menghapus data ini?");
+                                        }
+                                    </script>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
                 <!-- AKHIR DATA -->
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var input = document.querySelector('input[name="katakunci"]');
+                        var rows = document.querySelectorAll('tbody tr');
+
+                        input.addEventListener("input", function() {
+                            var keyword = input.value.toLowerCase();
+
+                            rows.forEach(function(row) {
+                                var nik = row.querySelector('td:first-child').innerText.toLowerCase(); // Ambil nilai NIK di kolom pertama
+                                if (nik.includes(keyword)) {
+                                    row.style.display = "";
+                                } else {
+                                    row.style.display = "none";
+                                }
+                            });
+                        });
+                    });
+                </script>
+
             </main>
             <a href="#" class="theme-toggle">
                 <i class="fa-regular fa-moon"></i>

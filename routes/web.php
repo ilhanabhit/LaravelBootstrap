@@ -1,10 +1,14 @@
 <?php
+
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\menusidebar;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RekamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,9 +42,8 @@ Route::get('dashboard', function () {
 Route::get('profile', [Controller::class, 'showProfile'])->name('profile');
 Route::get('dashboard', [menusidebar::class, 'dashboard'])->name('dashboard');
 Route::get('data-pasien', [menusidebar::class, 'dataPasien'])->name('data-pasien');
-Route::get('data-pegawai', [menusidebar::class, 'datapegawai'])->name('data-pegawai');
-Route::get('rekam-medik', [menusidebar::class, 'rekammedik'])->name('rekam-medik');
-Route::get('antrian', [menusidebar::class, 'antrian'])->name('antrian');
+Route::get('rekam-medis', [menusidebar::class, 'rekammedis'])->name('rekam-medis');
+Route::get('pendaftaran', [menusidebar::class, 'pendaftaran'])->name('pendaftaran');
 Route::get('artikel', [menusidebar::class, 'artikel'])->name('artikel');
 
 
@@ -56,3 +59,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('data-pasien/insert',[PasienController::class, 'insert'])->name('insertpasien');
 Route::post('data-pasien/delete', [PasienController::class, 'delete'])->name('deletepasien');
+Route::post('rekam-medis/insert',[RekamController::class, 'insert'])->name('insertrekammedis');
+Route::post('rekam-medis/delete', [RekamController::class, 'delete'])->name('deleterekammedis');
+Route::post('pendaftaran/insert', [PendaftaranController::class, 'insert'])->name('insertpendaftaran');
+Route::post('pendaftaran/delete', [PendaftaranController::class, 'delete'])->name('deletependaftaran');
+Route::post('artikel/insert',[ArtikelController::class, 'insert'])->name('insertartikel');
+Route::post('artikel/delete', [ArtikelController::class, 'delete'])->name('deleteartikel');

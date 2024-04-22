@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\artikel;
 use App\Models\pasien;
+use App\Models\rekammedis;
+use App\Models\pendaftaran;
 use Illuminate\Http\Request;
+
 
 class menusidebar extends Controller
 {
@@ -26,20 +31,37 @@ class menusidebar extends Controller
 
     public function datapegawai()
     {
+
         return view('data-pegawai.data-pegawai');
     }
 
-    public function rekammedik()
+    public function rekammedis()
     {
-        return view('rekam-medik.rekam-medik');
+        $tabel = rekammedis::getdata();
+
+        return view('rekam-medis.rekam-medis',
+        [
+            'tabel' => $tabel,
+        ]);
     }
 
-    public function antrian()
+    public function pendaftaran()
     {
-        return view('antrian.antrian');
+        $tabel = pendaftaran::getData();
+        
+        return view('pendaftaran.pendaftaran',
+        [
+            'tabel' => $tabel,
+        ]);
     }
+
     public function artikel()
     {
-        return view('artikel.artikel');
+        $tabel = artikel::getData();
+
+        return view('artikel.artikel',
+        [
+            'tabel' => $tabel,
+        ]);
     }
 }
