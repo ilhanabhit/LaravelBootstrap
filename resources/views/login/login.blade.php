@@ -13,6 +13,7 @@
 
 <body>
 
+    </div>
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form id="form-register" action="{{ route('register') }}" method="post">
@@ -24,6 +25,7 @@
                 <input type="password" name="konfirmasi_kata_sandi" id="konfirmasi_kata_sandi" placeholder="Konfirmasi Kata Sandi">
                 <p id="pesan_konfirmasi" style="color: red; display: none;">Konfirmasi kata sandi tidak cocok!</p>
                 <button type="submit" id="submit_button" disabled>Konfirmasi</button>
+                
             </form>
 
             <script>

@@ -129,7 +129,6 @@
                       </p>
                     </div>
                   </li>
-  
                   <li>
                     <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Poli Kesehatan Ibu Dan Anak <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                     <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
@@ -146,22 +145,42 @@
                       </p>
                     </div>
                   </li>
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-4" class="collapsed"><span>04</span> Poli Manajemen Terpadu Balita Sakit (MTBS) <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-4" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                      Sistem pelayanan kesehatan yang menyediakan pemeriksaan, pengobatan, dan tindakan medis dasar untuk balita yang sakit, dengan tujuan memastikan mereka mendapatkan perawatan yang tepat dan menyeluruh sesuai dengan kebutuhan kesehatannya. 
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-5" class="collapsed"><span>05</span> Poli Gizi <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-5" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                      Memberikan layanan kesehatan yang berfokus pada pencegahan dan penanganan masalah gizi melalui konseling, penilaian status gizi, penyuluhan pola makan sehat, dan program gizi khusus.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <a data-bs-toggle="collapse" data-bs-target="#accordion-list-6" class="collapsed"><span>06</span> Poli Imunisasi <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                    <div id="accordion-list-6" class="collapse" data-bs-parent=".accordion-list">
+                      <p>
+                      Layanan vaksinasi bagi masyarakat dengan tujuan utama mencegah penyebaran penyakit menular melalui pemberian imunisasi rutin dan program vaksinasi sesuai jadwal yang direkomendasikan.
+                      </p>
+                    </div>
+                  </li>
                 </ul>
               </div>
-            </div>
-            <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
-          </div>
-        </div>
       </section>
       </section>
     <!-- End Services Section -->
     
     <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
+    <section id="team" class="team section-bg" >
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <h2>Dokter Poli</h2>
-          <p>Di sini, Anda bisa bertemu dengan dokter dan mendapatkan berbagai layanan medis, mulai dari Poli Umum Poli Kesehatan Anak dan Ibu dan Poli Gigi Dan Mulut.</p>
+          <p>Di sini, Anda bisa bertemu dengan dokter dan mendapatkan berbagai layanan medis, mulai dari Poli Umum, Poli Kesehatan Anak dan Ibu, Poli Gigi Dan Mulut, Poli Manajemen Terpadu Balita Sakit (MTBS), Poli Gizi dan Poli Imunisasi.</p>
         </div>
 
         <div class="row">
@@ -268,9 +287,9 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 col-md-12">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15860.156137996653!2d112.1244637!3d-7.5090285!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7839811dd9b39b%3A0x50f46a9cbb0aef90!2sKB%20Ceria%20Jatikalen!5e0!3m2!1sen!2sid!4v1647369044114!5m2!1sen!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-  </div>
+  <div class="col-lg-6 col-md-12" style="width: 570px; height: 340px;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15860.156137996653!2d112.1244637!3d-7.5090285!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7839811dd9b39b%3A0x50f46a9cbb0aef90!2sKB%20Ceria%20Jatikalen!5e0!3m2!1sen!2sid!4v1647369044114!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
 </div>
 
     </section><!-- End Contact Section -->

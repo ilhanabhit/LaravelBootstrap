@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/stylee.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -37,147 +44,459 @@
             <main class="content px-3 py-2">
                 <div class="container-fluid">
                     <div class="mb-3">
-                        <h4>Data Pasien</h4>
-                    </div>
-                    <!-- error -->
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
+                        <div class="my-3 p-3 bg-body rounded shadow-sm">
 
-                    <!-- success -->
-                    @if (Session::has('success'))
-                    <div class="alert alert-success">
-                        {{ Session::get('success') }}
-                    </div>
-                    @endif
-                    @if (Session::has('error'))
-                    <div class="alert alert-danger">
-                        {{ Session::get('error') }}
-                    </div>
-                    @endif
-                    <form action="{{ route('insertpasien') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="nik" class="form-label">NIK *</label>
-                            <input type="number" class="form-control" id="nik" name="nik" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">Nama *</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir *</label>
-                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin *</label>
-                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
-                                <option value="Laki-laki">Laki-laki</option>
-                                <option value="Perempuan">Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="no_bpjs" class="form-label">Nomor BPJS</label>
-                            <input type="number" class="form-control" id="no_bpjs" name="no_bpjs">
-                        </div>
-                        <button type="submit" class="btn btn-primary">+ Tambah Data</button>
-                    </form>
 
-                </div>
-
-                <!-- AKHIR FORM -->
-
-                <!-- START DATA -->
-                <div class="my-3 p-3 bg-body rounded shadow-sm">
-                    <!-- FORM PENCARIAN -->
-                    <div class="pb-3" style="margin-top: 20px;">
-                        <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-                    </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>NIK</th>
-                                <th>Nama</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Jenis Kelamin</th>
-                                <th>No. BPJS</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($tabel as $pasien)
-                            <tr>
-                                <td>{{ $pasien->nik }}</td>
-                                <td>{{ $pasien->nama }}</td>
-                                <td>{{ $pasien->tanggal_lahir }}</td>
-                                <td>{{ $pasien->jenis_kelamin }}</td>
-                                <td>{{ $pasien->no_bpjs }}</td>
-                                <td>
-                                    <form id="deleteForm" action="{{ route('deletepasien') }}" method="post">
-                                        @csrf
-                                        <input value="{{ $pasien->nik }}" type="hidden" name="nik">
-                                        <button type="submit" class="btn btn-danger" onclick="return confirmDelete()">Hapus</button>
-                                    </form>
-
-                                    <script>
-                                        function confirmDelete() {
-                                            return confirm("Apakah Anda yakin ingin menghapus data ini?");
-                                        }
-                                    </script>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <!-- AKHIR DATA -->
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var input = document.querySelector('input[name="katakunci"]');
-                        var rows = document.querySelectorAll('tbody tr');
-
-                        input.addEventListener("input", function() {
-                            var keyword = input.value.toLowerCase();
-
-                            rows.forEach(function(row) {
-                                var nik = row.querySelector('td:first-child').innerText.toLowerCase(); // Ambil nilai NIK di kolom pertama
-                                if (nik.includes(keyword)) {
-                                    row.style.display = "";
-                                } else {
-                                    row.style.display = "none";
+                            <style>
+                                body {
+                                    color: #566787;
+                                    background: #f5f5f5;
+                                    font-family: 'Varela Round', sans-serif;
+                                    font-size: 13px;
                                 }
-                            });
-                        });
-                    });
-                </script>
 
-            </main>
-            <a href="#" class="theme-toggle">
-                <i class="fa-regular fa-moon"></i>
-                <i class="fa-regular fa-sun"></i>
-            </a>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                </a>
-                            </p>
+                                .table-responsive {
+                                    margin: 30px 0;
+                                }
+
+                                .table-wrapper {
+                                    background: #fff;
+                                    padding: 20px 25px;
+                                    border-radius: 3px;
+                                    min-width: 1000px;
+                                    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+                                }
+
+                                .table-title {
+                                    padding-bottom: 15px;
+                                    background: #435d7d;
+                                    color: #fff;
+                                    padding: 16px 30px;
+                                    min-width: 100%;
+                                    margin: -20px -25px 10px;
+                                    border-radius: 3px 3px 0 0;
+                                }
+
+                                .table-title h2 {
+                                    margin: 5px 0 0;
+                                    font-size: 24px;
+                                }
+
+                                .table-title .btn-group {
+                                    float: right;
+                                }
+
+                                .table-title .btn {
+                                    color: #fff;
+                                    float: right;
+                                    font-size: 13px;
+                                    border: none;
+                                    min-width: 50px;
+                                    border-radius: 2px;
+                                    border: none;
+                                    outline: none !important;
+                                    margin-left: 10px;
+                                }
+
+                                .table-title .btn i {
+                                    float: left;
+                                    font-size: 21px;
+                                    margin-right: 5px;
+                                }
+
+                                .table-title .btn span {
+                                    float: left;
+                                    margin-top: 2px;
+                                }
+
+                                table.table tr th,
+                                table.table tr td {
+                                    border-color: #e9e9e9;
+                                    padding: 12px 15px;
+                                    vertical-align: middle;
+                                }
+
+                                table.table tr th:first-child {
+                                    width: 60px;
+                                }
+
+                                table.table tr th:last-child {
+                                    width: 100px;
+                                }
+
+                                table.table-striped tbody tr:nth-of-type(odd) {
+                                    background-color: #fcfcfc;
+                                }
+
+                                table.table-striped.table-hover tbody tr:hover {
+                                    background: #f5f5f5;
+                                }
+
+                                table.table th i {
+                                    font-size: 13px;
+                                    margin: 0 5px;
+                                    cursor: pointer;
+                                }
+
+                                table.table td:last-child i {
+                                    opacity: 0.9;
+                                    font-size: 22px;
+                                    margin: 0 5px;
+                                }
+
+                                table.table td a {
+                                    font-weight: bold;
+                                    color: #566787;
+                                    display: inline-block;
+                                    text-decoration: none;
+                                    outline: none !important;
+                                }
+
+                                table.table td a:hover {
+                                    color: #2196F3;
+                                }
+
+                                table.table td a.edit {
+                                    color: #FFC107;
+                                }
+
+                                table.table td a.delete {
+                                    color: #F44336;
+                                }
+
+                                table.table td i {
+                                    font-size: 19px;
+                                }
+
+                                table.table .avatar {
+                                    border-radius: 50%;
+                                    vertical-align: middle;
+                                    margin-right: 10px;
+                                }
+
+                                .pagination {
+                                    float: right;
+                                    margin: 0 0 5px;
+                                }
+
+                                .pagination li a {
+                                    border: none;
+                                    font-size: 13px;
+                                    min-width: 30px;
+                                    min-height: 30px;
+                                    color: #999;
+                                    margin: 0 2px;
+                                    line-height: 30px;
+                                    border-radius: 2px !important;
+                                    text-align: center;
+                                    padding: 0 6px;
+                                }
+
+                                .pagination li a:hover {
+                                    color: #666;
+                                }
+
+                                .pagination li.active a,
+                                .pagination li.active a.page-link {
+                                    background: #03A9F4;
+                                }
+
+                                .pagination li.active a:hover {
+                                    background: #0397d6;
+                                }
+
+                                .pagination li.disabled i {
+                                    color: #ccc;
+                                }
+
+                                .pagination li i {
+                                    font-size: 16px;
+                                    padding-top: 6px
+                                }
+
+                                .hint-text {
+                                    float: left;
+                                    margin-top: 10px;
+                                    font-size: 13px;
+                                }
+
+                                /* Custom checkbox */
+                                .custom-checkbox {
+                                    position: relative;
+                                }
+
+                                .custom-checkbox input[type="checkbox"] {
+                                    opacity: 0;
+                                    position: absolute;
+                                    margin: 5px 0 0 3px;
+                                    z-index: 9;
+                                }
+
+                                .custom-checkbox label:before {
+                                    width: 18px;
+                                    height: 18px;
+                                }
+
+                                .custom-checkbox label:before {
+                                    content: '';
+                                    margin-right: 10px;
+                                    display: inline-block;
+                                    vertical-align: text-top;
+                                    background: white;
+                                    border: 1px solid #bbb;
+                                    border-radius: 2px;
+                                    box-sizing: border-box;
+                                    z-index: 2;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked+label:after {
+                                    content: '';
+                                    position: absolute;
+                                    left: 6px;
+                                    top: 3px;
+                                    width: 6px;
+                                    height: 11px;
+                                    border: solid #000;
+                                    border-width: 0 3px 3px 0;
+                                    transform: inherit;
+                                    z-index: 3;
+                                    transform: rotateZ(45deg);
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked+label:before {
+                                    border-color: #03A9F4;
+                                    background: #03A9F4;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked+label:after {
+                                    border-color: #fff;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:disabled+label:before {
+                                    color: #b8b8b8;
+                                    cursor: auto;
+                                    box-shadow: none;
+                                    background: #ddd;
+                                }
+
+                                /* Modal styles */
+                                .modal .modal-dialog {
+                                    max-width: 400px;
+                                }
+
+                                .modal .modal-header,
+                                .modal .modal-body,
+                                .modal .modal-footer {
+                                    padding: 20px 30px;
+                                }
+
+                                .modal .modal-content {
+                                    border-radius: 3px;
+                                    font-size: 14px;
+                                }
+
+                                .modal .modal-footer {
+                                    background: #ecf0f1;
+                                    border-radius: 0 0 3px 3px;
+                                }
+
+                                .modal .modal-title {
+                                    display: inline-block;
+                                }
+
+                                .modal .form-control {
+                                    border-radius: 2px;
+                                    box-shadow: none;
+                                    border-color: #dddddd;
+                                }
+
+                                .modal textarea.form-control {
+                                    resize: vertical;
+                                }
+
+                                .modal .btn {
+                                    border-radius: 2px;
+                                    min-width: 100px;
+                                }
+
+                                .modal form label {
+                                    font-weight: normal;
+                                }
+                            </style>
+                            </head>
+                            @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+
+                            <!-- Tampilkan pesan sukses -->
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+                            <!-- Tampilkan pesan kesalahan validasi -->
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
+                            <body>
+                                <div class="container-xl">
+                                    <div class="table-responsive">
+                                        <div class="table-wrapper">
+                                            <div class="table-title">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <h2>Data <b>Pasien</b></h2>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Tambah Data</span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>NIK</th>
+                                                        <th>Nama</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Jenis Kelamin</th>
+                                                        <th>No. BPJS</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($tabel as $index => $pasien)
+                                                    <tr>
+                                                        <td>{{ $pasien->nik }}</td>
+                                                        <td>{{ $pasien->nama }}</td>
+                                                        <td>{{ $pasien->tanggal_lahir }}</td>
+                                                        <td>{{ $pasien->jenis_kelamin }}</td>
+                                                        <td>{{ $pasien->no_bpjs }}</td>
+                                                        <td>
+                                                            <a class="delete" data-toggle="modal" data-target="#deleteEmployeeModal{{ $index }}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                            <!-- Delete Modal HTML -->
+                                                            <div id="deleteEmployeeModal{{ $index }}" class="modal fade">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <form action="{{ route('deletepasien') }}" method="post">
+                                                                            @csrf
+                                                                            <input type="hidden" name="nik" value="{{ $pasien->nik }}">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Hapus Data</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p>Apakah Anda Yakin Menghapus Data ini?</p>
+                                                                                <p class="text-warning"><small>Setelah Data Di Hapus Tidak bisa Di Batalkan</small></p>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                                                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+
+                                            </table>
+                                            <div class="clearfix">
+                                                <div class="hint-text">Menampilkan <b>5</b> Dari <b>25</b> entri</div>
+                                                <ul class="pagination" id="pagination">
+                                                    <li class="page-item disabled"><a href="#">Sebelumnya</a></li>
+                                                    <!-- Pagination items will be added dynamically here -->
+                                                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">Berikutnya</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Edit Modal HTML -->
+
+                                    <div id="addEmployeeModal" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="{{ route('insertpasien') }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Tambah Data Pasien</h4>
+                                                        <!-- error -->
+
+                                                        <!-- FORM TAMBAH DATA -->
+
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="nik">NIK*</label>
+                                                            <input type="number" id="nik" name="nik" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nama">Nama*</label>
+                                                            <input type="text" id="nama" name="nama" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tanggal_lahir">Tanggal Lahir*</label>
+                                                            <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="jenis_kelamin">Jenis Kelamin*</label>
+                                                            <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
+                                                                <option value="">Lainnya</option>
+                                                                <option value="Laki-laki">Laki-laki</option>
+                                                                <option value="Perempuan">Perempuan</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>No BPJS</label>
+                                                            <input type="number" class="form-control" name="no_bpjs">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="Batal">
+
+                                                        <!-- Masukkan elemen input lainnya di sini -->
+                                                        <button type="submit" class="btn btn-success">Tambah</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="theme-toggle">
+                                        <i class="fa-regular fa-moon"></i>
+                                        <i class="fa-regular fa-sun"></i>
+                                    </a>
+                                    <footer class="footer">
+                                        <div class="container-fluid">
+                                            <div class="row text-muted">
+                                                <div class="col-6 text-start">
+                                                    <p class="mb-0">
+                                                        <a href="#" class="text-muted">
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </div>
                         </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('assets/js/mainn.js')}}"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+                        <script src="{{ asset('assets/js/mainn.js')}}"></script>
 </body>
 
 </html>

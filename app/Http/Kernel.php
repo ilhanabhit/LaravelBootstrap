@@ -3,6 +3,8 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Controllers\AuthController;
+use App\Http\Middleware\AuthenticateUser;
 
 class Kernel extends HttpKernel
 {
@@ -25,7 +27,7 @@ class Kernel extends HttpKernel
 
         //middleware baru
         // 'cekstatus' => \App\Http\Middleware\CekStatus::class,
-            'auth.admin' => \App\Http\Middleware\AuthController::class,
+            'auth.admin' => \App\Http\Middleware\AuthenticateUser::class,
     ];
 
     protected $middleware = [

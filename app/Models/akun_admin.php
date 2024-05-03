@@ -34,12 +34,13 @@ class akun_admin extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * Set password attribute with MD5 encryption.
      *
-     * @var array<string, string>
+     * @param  string  $value
+     * @return void
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['kata_sandi'] = md5($value);
+    }
 }

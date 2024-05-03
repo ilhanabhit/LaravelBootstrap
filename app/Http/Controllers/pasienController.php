@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+
 class PasienController extends Controller
 {
     /**
@@ -44,14 +45,14 @@ class PasienController extends Controller
         ]);
 
         // Memeriksa apakah nama pasien sudah ada dalam database
-        $existingPasien = Pasien::where('nama', $validatedData['nama'])->first();
+        $existingPasien = pasien::where('nama', $validatedData['nama'])->first();
 
         if ($existingPasien) {
             // Jika nama pasien sudah ada, kembalikan pesan kesalahan
             return redirect()->route('pasien.index')->with('error', 'Data pasien dengan nama tersebut sudah ada!');
         } else {
             // Jika nama pasien belum ada, tambahkan data baru ke database
-            Pasien::create($validatedData);
+            pasien::create($validatedData);
 
             // Redirect ke halaman index dengan pesan sukses
             return redirect()->route('pasien.index')->with('success', 'Data pasien berhasil ditambahkan!');
@@ -85,41 +86,54 @@ class PasienController extends Controller
 
     public function insert(Request $request)
     {
-        // Validasi input sesuai kebutuhan
-        $validatedData = $request->validate([
-            'nik' => 'required|string|size:16|regex:/^\d+$/',
-            'nama' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'no_bpjs' => 'nullable|size:11|regex:/^\d+$/',
-        ], [
-            'nik.size' => 'NIK harus terdiri dari 16 angka.',
-            'nik.regex' => 'NIK harus terdiri dari angka saja.',
-            'no_bpjs.size' => 'Nomor BPJS harus terdiri dari 11 angka.',
-            'no_bpjs.regex' => 'Nomor BPJS harus terdiri dari angka saja.',
-        ]);
+        try {
+            // Validasi input sesuai kebutuhan
+            $validatedData = $request->validate([
+                'nik' => 'required|string|size:16|regex:/^\d+$/',
+                'nama' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+                'no_bpjs' => 'nullable|size:13|regex:/^\d+$/',
+            ], [
+                'nik.size' => 'NIK harus terdiri dari 16 angka.',
+                'nik.regex' => 'NIK harus terdiri dari angka saja.',
+                'no_bpjs.size' => 'Nomor BPJS harus terdiri dari 13 angka.',
+                'no_bpjs.regex' => 'Nomor BPJS harus terdiri dari angka saja.',
+            ]);
 
+            // Memeriksa apakah nama pasien sudah ada dalam database
+            $existingPasien = Pasien::where('nama', $validatedData['nama'])->first();
 
-        // Memeriksa apakah nama pasien sudah ada dalam database
-        $existingPasien = Pasien::where('nama', $validatedData['nama'])->first();
+            if ($existingPasien) {
+                // Jika nama pasien sudah ada, kembalikan pesan kesalahan
+                Session::flash('error', 'Data pasien sudah ada');
 
-        if ($existingPasien) {
-            // Jika nama pasien sudah ada, kembalikan pesan kesalahan
-            Session::flash('error', 'Data pasien sudah ada');
+                // Redirect ke halaman index dengan notifikasi error
+                return redirect()->route('data-pasien');
+            } else {
+                // Jika nama pasien belum ada, tambahkan data baru ke database
+                Pasien::create($validatedData);
 
-            // Redirect ke halaman index dengan notifikasi success
-            return redirect()->route('data-pasien');
-        } else {
-            // Jika nama pasien belum ada, tambahkan data baru ke database
-            Pasien::create($validatedData);
+                // Redirect ke halaman index dengan pesan sukses
+                Session::flash('success', 'Data pasien berhasil disimpan!');
 
-            // Redirect ke halaman index dengan pesan sukses
-            Session::flash('success', 'Data pasien berhasil disimpan!');
+                // Redirect ke halaman index dengan notifikasi success
+                return redirect()->route('data-pasien');
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal, kembalikan pesan kesalahan validasi ke halaman sebelumnya
+            return back()->withErrors($e->errors())->withInput();
+        } catch (QueryException $e) {
+            $sqlErrorMessage = $e->getMessage();
 
-            // Redirect ke halaman index dengan notifikasi success
-            return redirect()->route('data-pasien');
+            // Set pesan error dalam session
+            Session::flash('error', 'Gagal menyimpan Rekam Medis. Error SQL: ' . $sqlErrorMessage);
+
+            // Kembalikan ke halaman sebelumnya
+            return back();
         }
     }
+
 
 
 
@@ -133,18 +147,20 @@ class PasienController extends Controller
             $nik = $request->input('nik');
 
             // Hapus data pasien dari database
-            pasien::where('nik', $nik)->delete();
+            Pasien::where('nik', $nik)->delete();
 
             Session::flash('success', 'Data pasien berhasil dihapus!');
 
             // Redirect ke halaman index dengan pesan sukses
             return redirect()->route('data-pasien');
         } catch (QueryException $e) {
-            // Tangkap eksepsi query exception dan ambil pesan kesalahannya
             $sqlErrorMessage = $e->getMessage();
 
-            // Kembalikan ke halaman sebelumnya dengan pesan error SQL
-            return back()->withErrors('Gagal menghapus data pasien. Error SQL: ' . $sqlErrorMessage);
+            // Set pesan error dalam session
+            Session::flash('error', 'Gagal menghapus data pasien. Error SQL: ' . $sqlErrorMessage);
+
+            // Kembalikan ke halaman sebelumnya
+            return back();
         }
     }
 }

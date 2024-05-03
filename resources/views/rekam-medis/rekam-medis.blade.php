@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/stylee.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -37,9 +44,300 @@
             <main class="content px-3 py-2">
                 <div class="container-fluid">
                     <div class="mb-3">
-                    <div class="my-3 p-3 bg-body rounded shadow-sm">
-                            <h4>Rekam Medis</h4>
-                            <!-- error -->
+                        <div class="my-3 p-3 bg-body rounded shadow-sm">
+
+                            <style>
+                                body {
+                                    color: #566787;
+                                    background: #f5f5f5;
+                                    font-family: 'Varela Round', sans-serif;
+                                    font-size: 13px;
+                                }
+
+                                .table-responsive {
+                                    margin: 30px 0;
+                                }
+
+                                .table-wrapper {
+                                    background: #fff;
+                                    padding: 20px 25px;
+                                    border-radius: 3px;
+                                    min-width: 1000px;
+                                    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+                                }
+
+                                .table-title {
+                                    padding-bottom: 15px;
+                                    background: #435d7d;
+                                    color: #fff;
+                                    padding: 16px 30px;
+                                    min-width: 100%;
+                                    margin: -20px -25px 10px;
+                                    border-radius: 3px 3px 0 0;
+                                }
+
+                                .table-title h2 {
+                                    margin: 5px 0 0;
+                                    font-size: 24px;
+                                }
+
+                                .table-title .btn-group {
+                                    float: right;
+                                }
+
+                                .table-title .btn {
+                                    color: #fff;
+                                    float: right;
+                                    font-size: 13px;
+                                    border: none;
+                                    min-width: 50px;
+                                    border-radius: 2px;
+                                    border: none;
+                                    outline: none !important;
+                                    margin-left: 10px;
+                                }
+
+                                .table-title .btn i {
+                                    float: left;
+                                    font-size: 21px;
+                                    margin-right: 5px;
+                                }
+
+                                .table-title .btn span {
+                                    float: left;
+                                    margin-top: 2px;
+                                }
+
+                                table.table tr th,
+                                table.table tr td {
+                                    border-color: #e9e9e9;
+                                    padding: 12px 15px;
+                                    vertical-align: middle;
+                                }
+
+                                table.table tr th:first-child {
+                                    width: 60px;
+                                }
+
+                                table.table tr th:last-child {
+                                    width: 100px;
+                                }
+
+                                table.table-striped tbody tr:nth-of-type(odd) {
+                                    background-color: #fcfcfc;
+                                }
+
+                                table.table-striped.table-hover tbody tr:hover {
+                                    background: #f5f5f5;
+                                }
+
+                                table.table th i {
+                                    font-size: 13px;
+                                    margin: 0 5px;
+                                    cursor: pointer;
+                                }
+
+                                table.table td:last-child i {
+                                    opacity: 0.9;
+                                    font-size: 22px;
+                                    margin: 0 5px;
+                                }
+
+                                table.table td a {
+                                    font-weight: bold;
+                                    color: #566787;
+                                    display: inline-block;
+                                    text-decoration: none;
+                                    outline: none !important;
+                                }
+
+                                table.table td a:hover {
+                                    color: #2196F3;
+                                }
+
+                                table.table td a.edit {
+                                    color: #FFC107;
+                                }
+
+                                table.table td a.delete {
+                                    color: #F44336;
+                                }
+
+                                table.table td i {
+                                    font-size: 19px;
+                                }
+
+                                table.table .avatar {
+                                    border-radius: 50%;
+                                    vertical-align: middle;
+                                    margin-right: 10px;
+                                }
+
+                                .pagination {
+                                    float: right;
+                                    margin: 0 0 5px;
+                                }
+
+                                .pagination li a {
+                                    border: none;
+                                    font-size: 13px;
+                                    min-width: 30px;
+                                    min-height: 30px;
+                                    color: #999;
+                                    margin: 0 2px;
+                                    line-height: 30px;
+                                    border-radius: 2px !important;
+                                    text-align: center;
+                                    padding: 0 6px;
+                                }
+
+                                .pagination li a:hover {
+                                    color: #666;
+                                }
+
+                                .pagination li.active a,
+                                .pagination li.active a.page-link {
+                                    background: #03A9F4;
+                                }
+
+                                .pagination li.active a:hover {
+                                    background: #0397d6;
+                                }
+
+                                .pagination li.disabled i {
+                                    color: #ccc;
+                                }
+
+                                .pagination li i {
+                                    font-size: 16px;
+                                    padding-top: 6px
+                                }
+
+                                .hint-text {
+                                    float: left;
+                                    margin-top: 10px;
+                                    font-size: 13px;
+                                }
+
+                                /* Custom checkbox */
+                                .custom-checkbox {
+                                    position: relative;
+                                }
+
+                                .custom-checkbox input[type="checkbox"] {
+                                    opacity: 0;
+                                    position: absolute;
+                                    margin: 5px 0 0 3px;
+                                    z-index: 9;
+                                }
+
+                                .custom-checkbox label:before {
+                                    width: 18px;
+                                    height: 18px;
+                                }
+
+                                .custom-checkbox label:before {
+                                    content: '';
+                                    margin-right: 10px;
+                                    display: inline-block;
+                                    vertical-align: text-top;
+                                    background: white;
+                                    border: 1px solid #bbb;
+                                    border-radius: 2px;
+                                    box-sizing: border-box;
+                                    z-index: 2;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked+label:after {
+                                    content: '';
+                                    position: absolute;
+                                    left: 6px;
+                                    top: 3px;
+                                    width: 6px;
+                                    height: 11px;
+                                    border: solid #000;
+                                    border-width: 0 3px 3px 0;
+                                    transform: inherit;
+                                    z-index: 3;
+                                    transform: rotateZ(45deg);
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked+label:before {
+                                    border-color: #03A9F4;
+                                    background: #03A9F4;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:checked+label:after {
+                                    border-color: #fff;
+                                }
+
+                                .custom-checkbox input[type="checkbox"]:disabled+label:before {
+                                    color: #b8b8b8;
+                                    cursor: auto;
+                                    box-shadow: none;
+                                    background: #ddd;
+                                }
+
+                                /* Modal styles */
+                                .modal .modal-dialog {
+                                    max-width: 400px;
+                                }
+
+                                .modal .modal-header,
+                                .modal .modal-body,
+                                .modal .modal-footer {
+                                    padding: 20px 30px;
+                                }
+
+                                .modal .modal-content {
+                                    border-radius: 3px;
+                                    font-size: 14px;
+                                }
+
+                                .modal .modal-footer {
+                                    background: #ecf0f1;
+                                    border-radius: 0 0 3px 3px;
+                                }
+
+                                .modal .modal-title {
+                                    display: inline-block;
+                                }
+
+                                .modal .form-control {
+                                    border-radius: 2px;
+                                    box-shadow: none;
+                                    border-color: #dddddd;
+                                }
+
+                                .modal textarea.form-control {
+                                    resize: vertical;
+                                }
+
+                                .modal .btn {
+                                    border-radius: 2px;
+                                    min-width: 100px;
+                                }
+
+                                .modal form label {
+                                    font-weight: normal;
+                                }
+                            </style>
+
+                            </head>
+
+                            @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+
+                            <!-- Tampilkan pesan sukses -->
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+                            <!-- Tampilkan pesan kesalahan validasi -->
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -50,143 +348,280 @@
                             </div>
                             @endif
 
-                            <!-- success -->
-                            @if (Session::has('success'))
-                            <div class="alert alert-success">
-                                {{ Session::get('success') }}
-                            </div>
-                            @endif
+                            <body>
+                                <div class="container-xl">
+                                    <div class="table-responsive">
+                                        <div class="table-wrapper">
+                                            <div class="table-title">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <h2>Rekam <b>Medis</b></h2>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Tambah Data </span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID Rekam Medis</th>
+                                                        <th>ID Poli</th>
+                                                        <th>NIK</th>
+                                                        <th>Tanggal Periksa</th>
+                                                        <th>Riwayat Penyakit</th>
+                                                        <th>Tekanan Darah</th>
+                                                        <!-- <th>Berat Badan</th> -->
+                                                        <th>Berat / Tinggi Badan</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($tabel as $rekam_medis)
+                                                    <tr>
+                                                        <td>{{ $rekam_medis->id_rekammedis }}</td>
+                                                        <td>{{ $rekam_medis->id_poli }}</td>
+                                                        <td>{{ $rekam_medis->nik }}</td>
+                                                        <td>{{ $rekam_medis->tanggal_periksa}}</td>
+                                                        <td>{{ $rekam_medis->riwayat_penyakit }}</td>
+                                                        <td>{{ $rekam_medis->tekanan_darah }}</td>
+                                                        <td>{{ $rekam_medis->berat_badan }}Kg
+                                                            / {{ $rekam_medis->tinggi_badan }}CM</>
+                                                        <td>
+                                                            <!-- Trigger/Edit Button -->
+                                                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"
+                                                             data-rekammedis="{{ $rekam_medis->id_rekammedis }}" data-poli="{{ $rekam_medis->id_poli }}" data-nik="{{ $rekam_medis->nik }}"
+                                                              data-tanggal="{{ $rekam_medis->tanggal_periksa }}" data-riwayat="{{ $rekam_medis->riwayat_penyakit }}"
+                                                               data-tekanan="{{ $rekam_medis->tekanan_darah }}" data-berat="{{ $rekam_medis->berat_badan }}" data-tinggi="{{ $rekam_medis->tinggi_badan }}">
+                                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                                            </a>
+                                                            <!-- Delete Button -->
+                                                            <a href="#deleteEmployeeModal{{ $rekam_medis->id }}" class="delete" data-toggle="modal">
+                                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- Delete Modal -->
+                                                    <div id="deleteEmployeeModal{{ $rekam_medis->id }}" class="modal fade">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <form action="{{ route('deleterekammedis') }}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id_rekammedis" value="{{ $rekam_medis->id_rekammedis }}">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Hapus Data</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Apakah Anda Yakin Menghapus Data ini?</p>
+                                                                        <p class="text-warning"><small>Setelah Data Di Hapus Tidak bisa Di Batalkan</small></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
 
-                            <!-- FORM TAMBAH DATA -->
-                            <form action="{{ route('insertrekammedis') }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="id_rekammedis" class="form-label">ID Rekam Medis *</label>
-                                    <input type="text" class="form-control" id="id_rekammedis" name="id_rekammedis" required>
+                                            <div class="clearfix">
+                                                <div class="hint-text">Menampilkan <b>5</b> Dari <b>25</b> entries</div>
+                                                <ul class="pagination" id="pagination">
+                                                    <li class="page-item disabled"><a href="#">Sebelumnya</a></li>
+                                                    <!-- Pagination items will be added dynamically here -->
+                                                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                    <li class="page-item"><a href="#" class="page-link">Berikutnya</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="id_poli" class="form-label">ID Poli *</label>
-                                    <input type="text" class="form-control" id="id_poli" name="id_poli" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nik" class="form-label">NIK *</label>
-                                    <input type="number" class="form-control" id="nik" name="nik" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tanggal_periksa" class="form-label">Tanggal Periksa *</label>
-                                    <input type="date" class="form-control" id="tanggal_periksa" name="tanggal_periksa" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="riwayat_penyakit" class="form-label">Riwayat Penyakit *</label>
-                                    <input type="text" class="form-control" id="riwayat_penyakit" name="riwayat_penyakit" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tekanan_darah" class="form-label">Tekanan Darah *</label>
-                                    <input type="number" class="form-control" id="tekanan_darah" name="tekanan_darah">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="berat_badan" class="form-label">Berat Badan *</label>
-                                    <input type="number" class="form-control" id="berat_badan" name="berat_badan" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tinggi_badan" class="form-label">Tinggi Badan *</label>
-                                    <input type="number" class="form-control" id="tinggi_badan" name="tinggi_badan" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">+ Tambah Data</button>
-                            </form>
+                                <!-- Edit Modal HTML -->
 
-                            <!-- FORM PENCARIAN -->
-                            <div class="pb-3" style="margin-top: 20px;">
-                                    <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">                            
-                            </div>
-
-                            <!-- TABEL DATA -->
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID Rekam Medis</th>
-                                        <th>ID Poli</th>
-                                        <th>NIK</th>
-                                        <th>Tanggal Periksa</th>
-                                        <th>Riwayat Penyakit</th>
-                                        <th>Tekanan Darah</th>
-                                        <th>Berat Badan</th>
-                                        <th>Tinggi Badan</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($tabel as $rekammedis)
-                                    <tr>
-                                        <td>{{ $rekammedis->id_rekammedis }}</td>
-                                        <td>{{ $rekammedis->id_poli }}</td>
-                                        <td>{{ $rekammedis->nik }}</td>
-                                        <td>{{ $rekammedis->tanggal_periksa }}</td>
-                                        <td>{{ $rekammedis->riwayat_penyakit }}</td>
-                                        <td>{{ $rekammedis->tekanan_darah }} mm/H</td>
-                                        <td>{{ $rekammedis->berat_badan }}</td>
-                                        <td>{{ $rekammedis->tinggi_badan }}</td>
-                                        <td>
-                                            <form id="deleteForm" action="{{ route('deleterekammedis') }}" method="post">
+                                <div id="addEmployeeModal" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="{{ route('insertrekammedis') }}" method="POST">
                                                 @csrf
-                                                <input value="{{ $rekammedis->id_rekammedis }}" type="hidden" name="id_rekammedis">
-                                                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Tambah Data Rekam Medis</h4>
+                                                    <!-- error -->
+
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label>ID Rekam Medis*</label>
+                                                        <input type="number" class="form-control" name="id_rekammedis" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>ID Poli*</label>
+                                                        <input type="text" class="form-control" name="id_poli" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>NIK*</label>
+                                                        <input type="number" class="form-control" name="nik" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tanggal Periksa*</label>
+                                                        <input type="date" class="form-control" name="tanggal_periksa" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Riwayat Penyakit*</label>
+                                                        <input type="text" class="form-control" name="riwayat_penyakit" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tekanan Darah*</label>
+                                                        <input type="number" class="form-control" name="tekanan_darah" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Berat Badan*</label>
+                                                        <input type="number" class="form-control" name="berat_badan" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tinggi Badan*</label>
+                                                        <input type="number" class="form-control" name="tinggi_badan" required>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                                                    <input type="submit" class="btn btn-success" value="Tambah ">
+                                                </div>
                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Edit Modal HTML -->
+                                <div id="editEmployeeModal" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form id="editForm" action="{{ route('updaterekammedis')}}" method="post">
+                                                @csrf
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Edit Data</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label>ID Rekam Medis*</label>
+                                                        <input type="number" class="form-control" name="id_rekammedis" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>ID Poli*</label>
+                                                        <input type="text" class="form-control" name="id_poli" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>NIK*</label>
+                                                        <input type="number" class="form-control" name="nik" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tanggal Periksa*</label>
+                                                        <input type="text" class="form-control" name="tanggal_periksa" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Riwayat Penyakit*</label>
+                                                        <input type="text" class="form-control" name="riwayat_penyakit" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tekanan Darah*</label>
+                                                        <input type="number" class="form-control" name="tekanan_darah" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Berat Badan*</label>
+                                                        <input type="number" class="form-control" name="berat_badan" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tinggi Badan*</label>
+                                                        <input type="number" class="form-control" name="tinggi_badan" required>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                                                    <input type="submit" class="btn btn-info" value="Simpan">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            <script>
-                                                function confirmDelete() {
-                                                    if (confirm("Apakah Anda yakin ingin menghapus Data Ini ini?")) {
-                                                        document.getElementById("deleteForm").submit();
-                                                    }
-                                                }
-                                            </script>
-
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-            </main>
-            <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var input = document.querySelector('input[name="katakunci"]');
-                        var rows = document.querySelectorAll('tbody tr');
-
-                        input.addEventListener("input", function() {
-                            var keyword = input.value.toLowerCase();
-
-                            rows.forEach(function(row) {
-                                var nik = row.querySelector('td:first-child').innerText.toLowerCase(); // Ambil nilai NIK di kolom pertama
-                                if (nik.includes(keyword)) {
-                                    row.style.display = "";
-                                } else {
-                                    row.style.display = "none";
-                                }
-                            });
-                        });
-                    });
-                </script>
-            <a href="#" class="theme-toggle">
-                <i class="fa-regular fa-moon"></i>
-                <i class="fa-regular fa-sun"></i>
-            </a>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
+                                <!-- Delete Modal HTML -->
+                                <div id="deleteEmployeeModal" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form>
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Hapus Data</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Apakah Anda Yakin Menghapus Data ini?</p>
+                                                    <p class="text-warning"><small>Setelah Data Di Hapus Tidak bisa Di Batalkan</small></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                                                    <input type="submit" class="btn btn-danger" value="Hapus">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#" class="theme-toggle">
+                                    <i class="fa-regular fa-moon"></i>
+                                    <i class="fa-regular fa-sun"></i>
                                 </a>
-                            </p>
+                                <footer class="footer">
+                                    <div class="container-fluid">
+                                        <div class="row text-muted">
+                                            <div class="col-6 text-start">
+                                                <p class="mb-0">
+                                                    <a href="#" class="text-muted">
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </footer>
                         </div>
                     </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('assets/js/mainn.js')}}"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+                    <script src="{{ asset('assets/js/mainn.js')}}"></script>
+
+                    <script>
+                        $(document).ready(function() {
+                            // Menangani peristiwa klik pada tombol edit
+                            $('.edit').click(function() {
+                                // Mengambil nilai-nilai dari atribut data
+                                var idRekamMedis = $(this).data('rekammedis');
+                                var idPoli = $(this).data('poli');
+                                var nik = $(this).data('nik');
+                                var tanggalPeriksa = $(this).data('tanggal');
+                                var riwayatPenyakit = $(this).data('riwayat');
+                                var tekananDarah = $(this).data('tekanan');
+                                var beratBadan = $(this).data('berat');
+                                var tinggiBadan = $(this).data('tinggi');
+
+                                // Menempatkan nilai-nilai ke dalam form modal
+                                $('#editEmployeeModal input[name="id_rekammedis"]').val(idRekamMedis);
+                                $('#editEmployeeModal input[name="id_poli"]').val(idPoli);
+                                $('#editEmployeeModal input[name="nik"]').val(nik);
+                                $('#editEmployeeModal input[name="tanggal_periksa"]').val(tanggalPeriksa);
+                                $('#editEmployeeModal input[name="riwayat_penyakit"]').val(riwayatPenyakit);
+                                $('#editEmployeeModal input[name="tekanan_darah"]').val(tekananDarah);
+                                $('#editEmployeeModal input[name="berat_badan"]').val(beratBadan);
+                                $('#editEmployeeModal input[name="tinggi_badan"]').val(tinggiBadan);
+                            });
+                        });
+                    </script>
+
+
 </body>
 
 </html>
