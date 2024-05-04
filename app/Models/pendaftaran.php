@@ -17,7 +17,7 @@ class pendaftaran extends Model
         'id_poli',
         'tanggal_pendaftaran',
         'deskripsi_keluhan',
-        'status',
+        'status_pendaftaran',
         'antrian'
     ];
 

@@ -66,59 +66,102 @@ class PendaftaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        // Ambil data pendaftaran berdasarkan ID
-        $pendaftaran = pendaftaran::findOrFail($id); // Mengambil data dari model Pendaftaran
-        // Tampilkan form untuk mengedit data pendaftaran
-        return view('data-pendaftaran.edit', compact('pendaftaran'));
-    }
-
-    public function insert(Request $request)
+    public function update(Request $request)
 {
     try {
-        // Mendapatkan nilai id_pendaftaran dari request atau mengisi sendiri sesuai kebutuhan aplikasi
-        $id_pendaftaran = $request->input('id_pendaftaran'); // atau nilai id_pendaftaran yang Anda tentukan
-
-        // Validasi input sesuai kebutuhan
-        $validatedData = $request->validate([
-            'nik' => 'required|string|max:255',
-            'id_poli' => 'required|string|max:255',
+        // Validasi input
+        $request->validate([
+            'id_pendaftaran' => 'required',
+            'id_poli' => 'required',
+            'nik' => 'required|string|size:16', // Atur panjang NIK menjadi 16 angka
             'tanggal_pendaftaran' => 'required|date',
-            'deskripsi_keluhan' => 'required|max:255',
-            'status' => 'required|string|max:255',
-            'antrian' => 'required|string|max:255',
+            'deskripsi_keluhan' => 'required',
+            'status_pendaftaran' => 'required',
+            'antrian' => 'required',
         ]);
 
-        // Menambahkan nilai id_pendaftaran ke dalam array data yang akan disimpan
-        $validatedData['id_pendaftaran'] = $id_pendaftaran;
+        // Update data pendaftaran berdasarkan ID
+        Pendaftaran::where('id_pendaftaran', $request->id_pendaftaran)->update([
+            'id_poli' => $request->id_poli,
+            'nik' => $request->nik,
+            'tanggal_pendaftaran' => $request->tanggal_pendaftaran,
+            'deskripsi_keluhan' => $request->deskripsi_keluhan,
+            'status_pendaftaran' => $request->status_pendaftaran,
+            'antrian' => $request->antrian,
+        ]);
 
-        // Memasukkan data pendaftaran baru
-        $pendaftaran = new Pendaftaran; 
-        $pendaftaran->id_pendaftaran = $id_pendaftaran; // Atur id_pendaftaran secara manual
-        $pendaftaran->nik = $validatedData['nik'];
-        $pendaftaran->id_poli = $validatedData['id_poli'];
-        $pendaftaran->tanggal_pendaftaran = $validatedData['tanggal_pendaftaran'];
-        $pendaftaran->deskripsi_keluhan = $validatedData['deskripsi_keluhan'];
-        $pendaftaran->status = $validatedData['status'];
-        $pendaftaran->antrian = $validatedData['antrian'];
-        $pendaftaran->save(); 
+        // Redirect ke halaman atau tampilkan pesan sukses
+        return redirect()->back()->with('success', 'Data pendaftaran berhasil diperbarui');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        // Tangani error validasi
+        $validationErrors = $e->validator->errors();
 
-        Session::flash('success', 'Data Pendaftaran berhasil disimpan!');
+        // Tampilkan pesan error sesuai dengan aturan validasi
+        if ($validationErrors->has('nik') && $validationErrors->get('nik')[0] == 'NIK harus terdiri dari 16 angka.') {
+            $errorMessage = 'NIK harus terdiri dari 16 angka.';
+        } else {
+            $errorMessage = $e->getMessage();
+        }
 
-        // Redirect ke halaman index dengan notifikasi success
-        return redirect()->route('pendaftaran');
-    } catch (QueryException $e) {
-        // Tangkap eksepsi query exception dan ambil pesan kesalahannya
-        $sqlErrorMessage = $e->getMessage();
-
-        // Kembalikan ke halaman sebelumnya dengan pesan error SQL
-        return back()->withErrors('Gagal menyimpan Pendaftaran. Error SQL: ' . $sqlErrorMessage);
+        // Kembalikan ke halaman sebelumnya dengan pesan error
+        return redirect()->back()->withErrors('Gagal memperbarui data pendaftaran. Error: ' . $errorMessage);
     }
 }
 
 
+public function insert(Request $request)
+{
+    try {
+        // Validasi input sesuai kebutuhan
+        $validatedData = $request->validate([
+            'id_pendaftaran' => 'required|string|max:255|unique:pendaftaran,id_pendaftaran', // Validasi unik untuk id_pendaftaran
+            'nik' => 'required|string|size:16|unique:pendaftaran,nik', // atur panjang NIK menjadi 16 angka dan pastikan unik
+            'id_poli' => 'required|string|max:255',
+            'tanggal_pendaftaran' => 'required|date',
+            'deskripsi_keluhan' => 'required|max:255',
+            'status_pendaftaran' => 'required|string|max:255',
+            'antrian' => 'required|string|max:255',
+        ]);
 
+        // Memasukkan data pendaftaran baru
+        $pendaftaran = new Pendaftaran; 
+        $pendaftaran->id_pendaftaran = $validatedData['id_pendaftaran']; // Set id_pendaftaran dari input
+        $pendaftaran->nik = $validatedData['nik'];
+        $pendaftaran->id_poli = $validatedData['id_poli'];
+        $pendaftaran->tanggal_pendaftaran = $validatedData['tanggal_pendaftaran'];
+        $pendaftaran->deskripsi_keluhan = $validatedData['deskripsi_keluhan'];
+        
+        // Pastikan data yang dimasukkan ke 'status_pendaftaran' tidak melebihi panjang maksimum yang diizinkan
+        $status_pendaftaran = substr($validatedData['status_pendaftaran'], 0, 255);
+        $pendaftaran->status_pendaftaran = $status_pendaftaran;
+
+        $pendaftaran->antrian = $validatedData['antrian'];
+        $pendaftaran->save(); 
+
+        // Set flash message
+        session()->flash('success', 'Data Pendaftaran berhasil disimpan!');
+
+        // Redirect ke halaman index dengan notifikasi success
+        return redirect()->route('pendaftaran');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        // Tangkap eksepsi validasi
+        $validationErrors = $e->validator->errors();
+
+        // Tampilkan pesan error sesuai dengan aturan validasi
+        if ($validationErrors->has('id_pendaftaran') && $validationErrors->get('id_pendaftaran')[0] == 'The id pendaftaran has already been taken.') {
+            $errorMessage = 'ID Pendaftaran sudah ada.';
+        } elseif ($validationErrors->has('nik') && $validationErrors->get('nik')[0] == 'NIK harus terdiri dari 16 angka.') {
+            $errorMessage = 'NIK harus terdiri dari 16 angka.';
+        } elseif ($validationErrors->has('nik') && $validationErrors->get('nik')[0] == 'NIK sudah terdaftar.') {
+            $errorMessage = 'NIK sudah terdaftar.';
+        } else {
+            $errorMessage = $e->getMessage();
+        }
+
+        // Kembalikan ke halaman sebelumnya dengan pesan error
+        return back()->withErrors('Gagal menyimpan Pendaftaran. Error: ' . $errorMessage);
+    }
+}
 
 
     /**

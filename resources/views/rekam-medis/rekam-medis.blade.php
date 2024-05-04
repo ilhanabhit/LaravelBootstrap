@@ -23,23 +23,12 @@
     <div class="wrapper">
         @include('admin.sidebar')
         <div class="main">
-            <nav class="navbar navbar-expand px-3 border-bottom">
+        <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse navbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="width: 50px;">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{ route('profile')}}" class="dropdown-item">Profil</a>
-                                <a href="{{ route('logout')}}" class="dropdown-item">Keluar</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                
+                
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
@@ -372,7 +361,7 @@
                                                         <th>Riwayat Penyakit</th>
                                                         <th>Tekanan Darah</th>
                                                         <!-- <th>Berat Badan</th> -->
-                                                        <th>Berat / Tinggi Badan</th>
+                                                        <th>Berat Badan / Tinggi Badan</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -386,13 +375,18 @@
                                                         <td>{{ $rekam_medis->riwayat_penyakit }}</td>
                                                         <td>{{ $rekam_medis->tekanan_darah }}</td>
                                                         <td>{{ $rekam_medis->berat_badan }}Kg
-                                                            / {{ $rekam_medis->tinggi_badan }}CM</>
+                                                            / {{ $rekam_medis->tinggi_badan }}Cm</>
                                                         <td>
                                                             <!-- Trigger/Edit Button -->
                                                             <a href="#editEmployeeModal" class="edit" data-toggle="modal"
-                                                             data-rekammedis="{{ $rekam_medis->id_rekammedis }}" data-poli="{{ $rekam_medis->id_poli }}" data-nik="{{ $rekam_medis->nik }}"
-                                                              data-tanggal="{{ $rekam_medis->tanggal_periksa }}" data-riwayat="{{ $rekam_medis->riwayat_penyakit }}"
-                                                               data-tekanan="{{ $rekam_medis->tekanan_darah }}" data-berat="{{ $rekam_medis->berat_badan }}" data-tinggi="{{ $rekam_medis->tinggi_badan }}">
+                                                            data-rekammedis="{{ $rekam_medis->id_rekammedis }}" 
+                                                            data-poli="{{ $rekam_medis->id_poli }}" 
+                                                            data-nik="{{ $rekam_medis->nik }}"
+                                                            data-tanggal="{{ $rekam_medis->tanggal_periksa }}" 
+                                                            data-riwayat="{{ $rekam_medis->riwayat_penyakit }}"
+                                                            data-tekanan="{{ $rekam_medis->tekanan_darah }}" 
+                                                            data-berat="{{ $rekam_medis->berat_badan }}" 
+                                                            data-tinggi="{{ $rekam_medis->tinggi_badan }}">
                                                                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                                             </a>
                                                             <!-- Delete Button -->

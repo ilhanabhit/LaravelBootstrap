@@ -24,23 +24,12 @@
     <div class="wrapper">
         @include('admin.sidebar')
         <div class="main">
-            <nav class="navbar navbar-expand px-3 border-bottom">
+        <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse navbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="width: 50px;">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{ route('profile')}}" class="dropdown-item">Profil</a>
-                                <a href="{{ route('logout')}}" class="dropdown-item">Keluar</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                
+                
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
@@ -324,6 +313,29 @@
                             </style>
                             </head>
 
+                            @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+
+                            <!-- Tampilkan pesan sukses -->
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+                            <!-- Tampilkan pesan kesalahan validasi -->
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
                             <body>
                                 <div class="container-xl">
                                     <div class="table-responsive">
@@ -352,28 +364,61 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($tabel as $pasien)
+                                                    @foreach($tabel as $pendaftaran)
                                                     <tr>
-                                                        <td>{{ $pasien->id_pendaftaran }}</td>
-                                                        <td>{{ $pasien->nik }}</td>
-                                                        <td>{{ $pasien->id_poli }}</td>
-                                                        <td>{{ $pasien->tanggal_pendaftaran }}</td>
-                                                        <td>{{ $pasien->deskripsi_keluhan }}</td>
-                                                        <td>{{ $pasien->status_pendaftaran }}</td>
-                                                        <td>{{ $pasien->antrian }}</td>
+                                                        <td>{{ $pendaftaran->id_pendaftaran }}</td>
+                                                        <td>{{ $pendaftaran->nik }}</td>
+                                                        <td>{{ $pendaftaran->id_poli }}</td>
+                                                        <td>{{ $pendaftaran->tanggal_pendaftaran }}</td>
+                                                        <td>{{ $pendaftaran->deskripsi_keluhan }}</td>
+                                                        <td>{{ $pendaftaran->status_pendaftaran }}</td>
+                                                        <td>{{ $pendaftaran->antrian }}</td>
                                                         <td>
-                                                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                            <a href="#" class="delete" data-toggle="modal" data-id="{{ $pasien->id }}" data-target="#deleteEmployeeModal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                            <!-- Trigger/Edit Button -->
+                                                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"                                                            
+                                                            data-id="{{ $pendaftaran->id_pendaftaran }}" 
+                                                            data-nik="{{ $pendaftaran->nik }}" 
+                                                            data-poli="{{ $pendaftaran->id_poli }}" 
+                                                            data-tanggal="{{ $pendaftaran->tanggal_pendaftaran }}" 
+                                                            data-keluhan="{{ $pendaftaran->deskripsi_keluhan }}" 
+                                                            data-status="{{ $pendaftaran->status_pendaftaran }}" 
+                                                            data-antrian="{{ $pendaftaran->antrian }}">
+                                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                                            </>
+
+                                                            <!-- Delete Button -->
+                                                            <a href="#deleteEmployeeModal{{ $pendaftaran->id_pendaftaran }}" class="delete" data-toggle="modal">
+                                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                            </a>
                                                         </td>
                                                     </tr>
-                                                    <script>
-                                                        function confirmDelete() {
-                                                            return confirm("Apakah Anda yakin ingin menghapus data ini?");
-                                                        }
-                                                    </script>
+                                                    <!-- Delete Modal -->
+                                                    <div id="deleteEmployeeModal{{ $pendaftaran->id_pendaftaran }}" class="modal fade">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <form action="{{ route('deletependaftaran') }}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id_pendaftaran" value="{{ $pendaftaran->id_pendaftaran }}">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Hapus Data</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Apakah Anda Yakin Menghapus Data ini?</p>
+                                                                        <p class="text-warning"><small>Setelah Data Di Hapus Tidak bisa Di Batalkan</small></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     @endforeach
                                                 </tbody>
                                             </table>
+
                                             <div class="clearfix">
                                                 <div class="hint-text">Menampilkan <b>5</b> Dari <b>25</b> entries</div>
                                                 <ul class="pagination" id="pagination">
@@ -411,7 +456,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>ID Poli*</label>
-                                                        <input type="number" class="form-control" name="id_poli" required>
+                                                        <input type="text" class="form-control" name="id_poli" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tanggal Pendaftaran*</label>
@@ -422,13 +467,15 @@
                                                         <input type="text" class="form-control" name="deskripsi_keluhan" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Status Pendaftaran*</label>
+                                                        <label for="status_pendaftaran">Status Pendaftaran*</label>
                                                         <select class="form-control" name="status_pendaftaran" required>
-                                                            <option value="Baru">Di Terima</option>
-                                                            <option value="Lama">Di Proses</option>
-                                                            <option value="Lama">Di Tolak</option>
+                                                            <option value="Diterima">Diterima</option>
+                                                            <option value="Diproses">Diproses</option>
+                                                            <option value="Ditolak">Ditolak</option>
                                                         </select>
+
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label>Antrian*</label>
                                                         <input type="number" class="form-control" name="antrian" required>
@@ -460,11 +507,11 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>NIK*</label>
-                                                        <input type="number" class="form-control" name="nik" required>
+                                                        <input type="text" class="form-control" name="nik" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>ID Poli*</label>
-                                                        <input type="number" class="form-control" name="id_poli" required>
+                                                        <input type="text" class="form-control" name="id_poli" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tanggal Pendaftaran*</label>
@@ -477,10 +524,11 @@
                                                     <div class="form-group">
                                                         <label>Status Pendaftaran*</label>
                                                         <select class="form-control" name="status_pendaftaran" required>
-                                                            <option value="Baru">Di Terima</option>
-                                                            <option value="Lama">Di Proses</option>
-                                                            <option value="Lama">Di Tolak</option>
+                                                            <option value="Diterima">Di Terima</option>
+                                                            <option value="Diproses">Di Proses</option>
+                                                            <option value="Ditolak">Di Tolak</option>
                                                         </select>
+
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Antrian*</label>
@@ -537,6 +585,31 @@
                     </div>
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
                     <script src="{{ asset('assets/js/mainn.js')}}"></script>
+                    <script>
+                        $(document).ready(function() {
+                            // Tangani tindakan klik pada tombol edit
+                            $('.edit').click(function() {
+                                // Dapatkan data dari atribut data
+                                var id = $(this).data('id');
+                                var nik = $(this).data('nik');
+                                var poli = $(this).data('poli');
+                                var tanggal = $(this).data('tanggal');
+                                var keluhan = $(this).data('keluhan');
+                                var status = $(this).data('status');
+                                var antrian = $(this).data('antrian');
+
+                                // Tempatkan data ke dalam modal
+                                $('#editEmployeeModal input[name="id_pendaftaran"]').val(id);
+                                $('#editEmployeeModal input[name="nik"]').val(nik);
+                                $('#editEmployeeModal input[name="id_poli"]').val(poli);
+                                $('#editEmployeeModal input[name="tanggal_pendaftaran"]').val(tanggal);
+                                $('#editEmployeeModal input[name="deskripsi_keluhan"]').val(keluhan);
+                                $('#editEmployeeModal input[name="status_pendaftaran"]').val(status);
+                                $('#editEmployeeModal input[name="antrian"]').val(antrian);
+                            });
+                        });
+                    </script>
+
 </body>
 
 </html>

@@ -57,14 +57,14 @@ Route::get('artikel', [menusidebar::class, 'artikel'])->name('artikel');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::post('data-pasien/insert',[PasienController::class, 'insert'])->name('insertpasien');
+Route::post('data-pasien/insert', [PasienController::class, 'insert'])->name('insertpasien');
 Route::post('data-pasien/delete', [PasienController::class, 'delete'])->name('deletepasien');
 Route::post('rekam-medis/update', [RekamController::class, 'update'])->name('updaterekammedis');
-Route::post('rekam-medis/insert',[RekamController::class, 'insert'])->name('insertrekammedis');
+Route::post('rekam-medis/insert', [RekamController::class, 'insert'])->name('insertrekammedis');
 Route::post('rekam-medis/delete', [RekamController::class, 'delete'])->name('deleterekammedis');
 Route::post('pendaftaran/insert', [PendaftaranController::class, 'insert'])->name('insertpendaftaran');
+Route::post('pendaftaran/delete', [PendaftaranController::class, 'delete'])->name('deletependaftaran');
 Route::post('pendaftaran/update', [PendaftaranController::class, 'update'])->name('updatependaftaran');
-// Route::put('pendaftaran/update', [PendaftaranController::class, 'update'])->name('updaterekammedis');
-Route::post('artikel/update',[ArtikelController::class, 'update'])->name('updateartikel');
-Route::post('artikel/insert',[ArtikelController::class, 'insert'])->name('insertartikel');
+Route::post('artikel/update', [ArtikelController::class, 'update'])->name('updateartikel');
+Route::post('artikel/insert', [ArtikelController::class, 'insert'])->name('insertartikel');
 Route::post('artikel/delete', [ArtikelController::class, 'delete'])->name('deleteartikel');

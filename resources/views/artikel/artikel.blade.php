@@ -23,23 +23,12 @@
     <div class="wrapper">
         @include('admin.sidebar')
         <div class="main">
-            <nav class="navbar navbar-expand px-3 border-bottom">
+        <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse navbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="width: 50px;">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{ route('profile')}}" class="dropdown-item">Profil</a>
-                                <a href="{{ route('logout')}}" class="dropdown-item">Keluar</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                
+                
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
@@ -323,6 +312,29 @@
                             </style>
                             </head>
 
+                            @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+
+                            <!-- Tampilkan pesan sukses -->
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+                            <!-- Tampilkan pesan kesalahan validasi -->
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
                             <body>
                                 <div class="container-xl">
                                     <div class="table-responsive">
@@ -359,19 +371,50 @@
                                                         <td>{{ Str::limit($artikel->isi_artikel, 50) }}</td>
                                                         <td>{{ $artikel->nip }}</td>
                                                         <td>
-                                                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                                            <a href="#" class="delete" data-toggle="modal" data-id="{{ $artikel->id }}" onclick="return confirmDelete()"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                                        </td>
-                                                    </tr>
+                                                            <!-- Trigger/Edit Button -->
+                                                            <a href="#editEmployeeModal" class="edit" data-toggle="modal" 
+                                                            data-id="{{ $artikel->id_artikel }}" 
+                                                            data-judul="{{ $artikel->judul }}" 
+                                                            data-tanggal="{{ $artikel->tanggal_publikasi }}" 
+                                                            data-gambar="{{ $artikel->img_artikel }}" 
+                                                            data-isi="{{ $artikel->isi_artikel }}" 
+                                                            data-nip="{{ $artikel->nip }}">
+                                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                                            </a>
+
+                                                            <!-- Delete Button -->
+                                                            <a href="#deleteEmployeeModal{{ $artikel->id_artikel }}" class="delete" data-toggle="modal">
+                                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                            </a>
+
+                                                    <!-- Delete Modal -->
+                                                    <div id="deleteEmployeeModal{{ $artikel->id_artikel }}" class="modal fade">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <form action="{{ route('deleteartikel') }}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id_artikel" value="{{ $artikel->id_artikel }}">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Hapus Data</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Apakah Anda Yakin Menghapus Data ini?</p>
+                                                                        <p class="text-warning"><small>Setelah Data Di Hapus Tidak bisa Di Batalkan</small></p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     @endforeach
                                                 </tbody>
                                             </table>
 
-                                            <script>
-                                                function confirmDelete() {
-                                                    return confirm("Apakah Anda yakin ingin menghapus data ini?");
-                                                }
-                                            </script>
+
 
                                             <div class="clearfix">
                                                 <div class="hint-text">Menampilkan <b>5</b> Dari <b>25</b> entries</div>
@@ -393,7 +436,7 @@
                                 <div id="addEmployeeModal" class="modal fade">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="{{ route('insertpendaftaran') }}" method="POST">
+                                            <form action="{{ route('insertartikel') }}" method="POST">
                                                 @csrf
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Tambah Data</h4>
@@ -402,27 +445,27 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label>ID Artikel</label>
-                                                        <input type="number" class="form-control" name="id_pendaftaran" required>
+                                                        <input type="number" class="form-control" name="id_artikel" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Judul</label>
-                                                        <input type="number" class="form-control" name="nik" required>
+                                                        <input type="text" class="form-control" name="judul" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tanggal Publikasi</label>
-                                                        <input type="date" class="form-control" name="id_poli" required>
+                                                        <input type="date" class="form-control" name="tanggal_publikasi" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Gambar Artikel</label>
-                                                        <input type="file" class="form-control" name="gambar" accept="image/*" required>
+                                                        <input type="file" class="form-control" name="img_artikel" accept="image/*" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Isi Artikel</label>
-                                                        <input type="text" class="form-control" name="gambar" accept="image/*" required>
+                                                        <input type="text" class="form-control" name="isi_artikel" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>NIP</label>
-                                                        <input type="number" class="form-control" name="antrian" required>
+                                                        <input type="number" class="form-control" name="nip" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -447,27 +490,27 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label>ID Artikel</label>
-                                                        <input type="number" class="form-control" name="id_pendaftaran" required>
+                                                        <input type="number" class="form-control" name="id_artikel" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Judul</label>
-                                                        <input type="number" class="form-control" name="nik" required>
+                                                        <input type="text" class="form-control" name="judul" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tanggal Publikasi</label>
-                                                        <input type="date" class="form-control" name="id_poli" required>
+                                                        <input type="date" class="form-control" name="tanggal_publikasi" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Gambar Artikel</label>
-                                                        <input type="file" class="form-control" name="gambar" accept="image/*" required>
+                                                        <input type="file" class="form-control" name="img_artikel" accept="image/*" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Isi Artikel</label>
-                                                        <input type="text" class="form-control" name="gambar" accept="image/*" required>
+                                                        <input type="text" class="form-control" name="isi_artikel" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>NIP</label>
-                                                        <input type="number" class="form-control" name="antrian" required>
+                                                        <input type="number" class="form-control" name="nip" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -520,6 +563,29 @@
                     </div>
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
                     <script src="{{ asset('assets/js/mainn.js')}}"></script>
+                    <script>
+                        $(document).ready(function() {
+                            // Tangani tindakan klik pada tombol edit artikel
+                            $('.edit').click(function() {
+                                // Dapatkan data dari atribut data
+                                var id = $(this).data('id');
+                                var judul = $(this).data('judul');
+                                var tanggal = $(this).data('tanggal');
+                                var gambar = $(this).data('gambar');
+                                var isi = $(this).data('isi');
+                                var nip = $(this).data('nip');
+
+                                // Tempatkan data ke dalam modal
+                                $('#editEmployeeModal input[name="id_artikel"]').val(id);
+                                $('#editEmployeeModal input[name="judul"]').val(judul);
+                                $('#editEmployeeModal input[name="tanggal_publikasi"]').val(tanggal);
+                                $('#editEmployeeModal input[name="img_artikel"]').val(gambar);
+                                $('#editEmployeeModal textarea[name="isi_artikel"]').val(isi);
+                                $('#editEmployeeModal input[name="nip"]').val(nip);
+                            });
+                        });
+                    </script>
+
 </body>
 
 </html>

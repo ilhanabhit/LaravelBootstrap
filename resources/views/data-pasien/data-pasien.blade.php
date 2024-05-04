@@ -23,23 +23,12 @@
     <div class="wrapper">
         @include('admin.sidebar')
         <div class="main">
-            <nav class="navbar navbar-expand px-3 border-bottom">
+        <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse navbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="width: 50px;">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{ route('profile')}}" class="dropdown-item">Profil</a>
-                                <a href="{{ route('logout')}}" class="dropdown-item">Keluar</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                
+                
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
@@ -354,7 +343,7 @@
                                             <div class="table-title">
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <h2>Data <b>Pasien</b></h2>
+                                                        <h2> <b>Pasien</b></h2>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Tambah Data</span></a>
