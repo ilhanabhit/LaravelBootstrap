@@ -59,6 +59,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('data-pasien/insert', [PasienController::class, 'insert'])->name('insertpasien');
 Route::post('data-pasien/delete', [PasienController::class, 'delete'])->name('deletepasien');
+Route::post('data-pasien/update', [PasienController::class, 'update'])->name('deleteupdate');
 Route::post('rekam-medis/update', [RekamController::class, 'update'])->name('updaterekammedis');
 Route::post('rekam-medis/insert', [RekamController::class, 'insert'])->name('insertrekammedis');
 Route::post('rekam-medis/delete', [RekamController::class, 'delete'])->name('deleterekammedis');

@@ -10,7 +10,7 @@
             <li class="sidebar-item">
                 <a href="{{ ('dashboard')}}" class="sidebar-link">
                     <i class="fa-solid fa-list pe-2"></i>
-                    Dashboard
+                    Beranda
                 </a>
             </li>
             <li class="sidebar-item">
@@ -37,45 +37,53 @@
                 Artikel
             </a>
             </ul>
-        <li class="sidebar-item">
-            <a href="#" class="sidebar-link" id="logout-button">
-                <i class="fas fa-sign-out-alt pe-2"></i>
-                Keluar
-            </a>
-        </li>
+            <li class="sidebar-item">
+    <a href="#" class="sidebar-link" id="logout-button">
+        <i class="fa-solid fa-sign-out-alt pe-2"></i>
+        Keluar
+    </a>
+</li>
 
-        <!-- Modal konfirmasi -->
-        <div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Keluar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Apakah Anda yakin ingin keluar?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <a href="{{ ('logout') }}" class="btn btn-danger">Keluar</a>
-                    </div>
-                </div>
+<!-- Modal konfirmasi -->
+<div class="modal fade" id="confirmLogoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Keluar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin keluar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <a href="{{ ('logout') }}" class="btn btn-danger" id="confirmLogoutButton">Keluar</a>
             </div>
         </div>
+    </div>
+</div>
 
-        <script>
-            // Mendapatkan tombol "Keluar"
-            var logoutButton = document.getElementById('logout-button');
+<script>
+    // Mendapatkan tombol "Keluar"
+    var logoutButton = document.getElementById('logout-button');
+    var confirmLogoutButton = document.getElementById('confirmLogoutButton');
 
-            // Menambahkan event listener untuk menampilkan modal konfirmasi ketika tombol "Keluar" diklik
-            logoutButton.addEventListener('click', function(event) {
-                event.preventDefault(); // Mencegah perilaku default dari link
+    // Menambahkan event listener untuk menampilkan modal konfirmasi ketika tombol "Keluar" diklik
+    logoutButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Mencegah perilaku default dari link
 
-                // Menampilkan modal konfirmasi
-                var confirmModal = new bootstrap.Modal(document.getElementById('confirmLogoutModal'));
-                confirmModal.show();
-            });
-        </script>
+        // Menampilkan modal konfirmasi
+        var confirmModal = new bootstrap.Modal(document.getElementById('confirmLogoutModal'));
+        confirmModal.show();
+    });
+
+    // Menambahkan event listener untuk mengarahkan ke halaman logout saat tombol "Keluar" di modal diklik
+    confirmLogoutButton.addEventListener('click', function(event) {
+        confirmModal.hide(); // Menyembunyikan modal konfirmasi
+        window.location.href = "{{ ('logout') }}"; // Mengarahkan ke halaman logout
+    });
+</script>
+
 
 
 

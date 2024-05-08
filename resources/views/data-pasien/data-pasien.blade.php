@@ -23,12 +23,12 @@
     <div class="wrapper">
         @include('admin.sidebar')
         <div class="main">
-        <nav class="navbar navbar-expand px-3 border-bottom">
+            <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
-                
+
+
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
@@ -312,6 +312,7 @@
                                     font-weight: normal;
                                 }
                             </style>
+
                             </head>
                             @if(session('error'))
                             <div class="alert alert-danger">
@@ -343,149 +344,309 @@
                                             <div class="table-title">
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <h2> <b>Pasien</b></h2>
+                                                        <h2>Data <b>Pasien</b></h2>
                                                     </div>
+
                                                     <div class="col-sm-6">
                                                         <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Tambah Data</span></a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>NIK</th>
-                                                        <th>Nama</th>
-                                                        <th>Tanggal Lahir</th>
-                                                        <th>Jenis Kelamin</th>
-                                                        <th>No. BPJS</th>
-                                                        <th>Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($tabel as $index => $pasien)
-                                                    <tr>
-                                                        <td>{{ $pasien->nik }}</td>
-                                                        <td>{{ $pasien->nama }}</td>
-                                                        <td>{{ $pasien->tanggal_lahir }}</td>
-                                                        <td>{{ $pasien->jenis_kelamin }}</td>
-                                                        <td>{{ $pasien->no_bpjs }}</td>
-                                                        <td>
-                                                            <a class="delete" data-toggle="modal" data-target="#deleteEmployeeModal{{ $index }}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                                            <!-- Delete Modal HTML -->
-                                                            <div id="deleteEmployeeModal{{ $index }}" class="modal fade">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <form action="{{ route('deletepasien') }}" method="post">
-                                                                            @csrf
-                                                                            <input type="hidden" name="nik" value="{{ $pasien->nik }}">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Hapus Data</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p>Apakah Anda Yakin Menghapus Data ini?</p>
-                                                                                <p class="text-warning"><small>Setelah Data Di Hapus Tidak bisa Di Batalkan</small></p>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
-                                                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                                                            </div>
-                                                                        </form>
+                                            <style>
+                                                .search-container {
+                                                    display: flex;
+                                                    justify-content: flex-start;
+                                                    align-items: center;
+                                                    height: 10vh;
+                                                }
+
+                                                .search-box {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    border: 1px solid #ccc;
+                                                    border-radius: 5px;
+                                                    padding: 10px;
+                                                    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+                                                }
+
+                                                .search-box input[type="text"] {
+                                                    border: none;
+                                                    outline: none;
+                                                    padding: 5px;
+                                                }
+
+                                                .search-box button {
+                                                    background-color: #007bff;
+                                                    color: #fff;
+                                                    border: none;
+                                                    padding: 5px 10px;
+                                                    border-radius: 5px;
+                                                    cursor: pointer;
+                                                }
+                                            </style>
+                                            </head>
+
+                                            <body>
+                                                <div class="search-container">
+                                                    <div class="search-box">
+                                                        <input type="text" placeholder="Cari Berdasarkan NIK" id="searchInput">
+                                                        <button type="button" id="searchButton"><i class="fas fa-search"></i></button>
+                                                    </div>
+                                                </div>
+
+
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>NIK</th>
+                                                            <th>Nama</th>
+                                                            <th>Tanggal Lahir</th>
+                                                            <th>Jenis Kelamin</th>
+                                                            <th>No. BPJS</th>
+                                                            <th>Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($tabel as $index => $pasien)
+                                                        <tr>
+                                                            <td>{{ $pasien->nik }}</td>
+                                                            <td>{{ $pasien->nama }}</td>
+                                                            <td>{{ $pasien->tanggal_lahir }}</td>
+                                                            <td>{{ $pasien->jenis_kelamin }}</td>
+                                                            <td>{{ $pasien->no_bpjs }}</td>
+                                                            <td>
+                                                                <a class="delete" data-toggle="modal" data-target="#deleteEmployeeModal{{ $index }}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                                <!-- Delete Modal HTML -->
+                                                                <div id="deleteEmployeeModal{{ $index }}" class="modal fade">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <form action="{{ route('deletepasien') }}" method="post">
+                                                                                @csrf
+                                                                                <input type="hidden" name="nik" value="{{ $pasien->nik }}">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Hapus Data</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <p>Apakah Anda Yakin Menghapus Data ini?</p>
+                                                                                    <p class="text-warning"><small>Setelah Data Di Hapus Tidak bisa Di Batalkan</small></p>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                                                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+
+                                                </table>
+                                                </table>
+                                                <div class="clearfix">
+                                                    <div class="clearfix">
+                                                        <div class="hint-text" id="hintText">Menampilkan <b>1</b> Dari <b>25</b> Data</div>
+                                                    </div>
+
+
+
+                                                    <ul class="pagination" id="pagination">
+                                                        <li class="page-item disabled"><a href="#">Sebelumnya</a></li>
+                                                        <!-- Pagination items will be added dynamically here -->
+                                                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">Berikutnya</a></li>
+                                                    </ul>
+
+
+                                                </div>
+                                        </div>
+                                        <!-- Edit Modal HTML -->
+
+                                        <div id="addEmployeeModal" class="modal fade">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form action="{{ route('insertpasien') }}" method="POST">
+                                                        @csrf
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Tambah Data Pasien</h4>
+                                                            <!-- error -->
+
+                                                            <!-- FORM TAMBAH DATA -->
+
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="nik">NIK*</label>
+                                                                <input type="number" id="nik" name="nik" class="form-control" required>
                                                             </div>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-
-                                            </table>
-                                            <div class="clearfix">
-                                                <div class="hint-text">Menampilkan <b>5</b> Dari <b>25</b> entri</div>
-                                                <ul class="pagination" id="pagination">
-                                                    <li class="page-item disabled"><a href="#">Sebelumnya</a></li>
-                                                    <!-- Pagination items will be added dynamically here -->
-                                                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">Berikutnya</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Edit Modal HTML -->
-
-                                    <div id="addEmployeeModal" class="modal fade">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <form action="{{ route('insertpasien') }}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Tambah Data Pasien</h4>
-                                                        <!-- error -->
-
-                                                        <!-- FORM TAMBAH DATA -->
-
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="nik">NIK*</label>
-                                                            <input type="number" id="nik" name="nik" class="form-control" required>
+                                                            <div class="form-group">
+                                                                <label for="nama">Nama*</label>
+                                                                <input type="text" id="nama" name="nama" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="tanggal_lahir">Tanggal Lahir*</label>
+                                                                <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="jenis_kelamin">Jenis Kelamin*</label>
+                                                                <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
+                                                                    <option value="">Lainnya</option>
+                                                                    <option value="Laki-laki">Laki-laki</option>
+                                                                    <option value="Perempuan">Perempuan</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>No BPJS</label>
+                                                                <input type="number" class="form-control" name="no_bpjs">
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="nama">Nama*</label>
-                                                            <input type="text" id="nama" name="nama" class="form-control" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="tanggal_lahir">Tanggal Lahir*</label>
-                                                            <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="jenis_kelamin">Jenis Kelamin*</label>
-                                                            <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
-                                                                <option value="">Lainnya</option>
-                                                                <option value="Laki-laki">Laki-laki</option>
-                                                                <option value="Perempuan">Perempuan</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>No BPJS</label>
-                                                            <input type="number" class="form-control" name="no_bpjs">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="Batal">
+                                                        <div class="modal-footer">
+                                                            <input type="button" class="btn btn-danger" data-dismiss="modal" value="Batal">
 
-                                                        <!-- Masukkan elemen input lainnya di sini -->
-                                                        <button type="submit" class="btn btn-success">Tambah</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="theme-toggle">
-                                        <i class="fa-regular fa-moon"></i>
-                                        <i class="fa-regular fa-sun"></i>
-                                    </a>
-                                    <footer class="footer">
-                                        <div class="container-fluid">
-                                            <div class="row text-muted">
-                                                <div class="col-6 text-start">
-                                                    <p class="mb-0">
-                                                        <a href="#" class="text-muted">
-                                                        </a>
-                                                    </p>
+                                                            <!-- Masukkan elemen input lainnya di sini -->
+                                                            <button type="submit" class="btn btn-success">Tambah</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    </footer>
+                                        <a href="#" class="theme-toggle">
+                                            <i class="fa-regular fa-moon"></i>
+                                            <i class="fa-regular fa-sun"></i>
+                                        </a>
+                                        <footer class="footer">
+                                            <div class="container-fluid">
+                                                <div class="row text-muted">
+                                                    <div class="col-6 text-start">
+                                                        <p class="mb-0">
+                                                            <a href="#" class="text-muted">
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </footer>
+                                    </div>
                                 </div>
-                        </div>
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-                        <script src="{{ asset('assets/js/mainn.js')}}"></script>
-</body>
+                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+                                <script src="{{ asset('assets/js/mainn.js')}}"></script>
+                                <!-- Font Awesome -->
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+                                <!-- pencarian -->
+                                <script>
+                                    document.getElementById("searchButton").addEventListener("click", function() {
+                                        var searchTerm = document.getElementById("searchInput").value.toLowerCase(); // Mengambil nilai pencarian dan mengonversinya ke huruf kecil
+                                        var tableRows = document.querySelectorAll("tbody tr"); // Mengambil semua baris tabel
+
+                                        tableRows.forEach(function(row) {
+                                            var nik = row.cells[0].innerText.toLowerCase(); // Mengambil nilai NIK dari setiap baris tabel dan mengonversinya ke huruf kecil
+                                            if (nik.includes(searchTerm)) { // Memeriksa apakah nilai NIK mengandung kata kunci pencarian
+                                                row.style.display = ""; // Menampilkan baris jika cocok
+                                            } else {
+                                                row.style.display = "none"; // Menyembunyikan baris jika tidak cocok
+                                            }
+                                        });
+                                    });
+                                </script>
+
+                                <!-- data masuk -->
+                                <script>
+                                    // Jalankan kode JavaScript setelah semua elemen HTML dimuat
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Ambil jumlah total entri dari tabel
+                                        var totalEntries = document.querySelectorAll('.table-striped tbody tr').length;
+
+                                        // Update teks pada elemen hint-text
+                                        document.getElementById('hintText').innerHTML = 'Menampilkan <b>' + totalEntries + '</b> Dari <b>' + totalEntries + '</b> entries';
+                                    });
+                                </script>
+                                
+                                <!-- tabel halaman -->
+                                <script>
+                                    var currentPageNum = 1; // Variabel untuk menyimpan nomor halaman saat ini
+
+                                    // Fungsi untuk menampilkan data sesuai dengan halaman yang dipilih
+                                    function showPage(pageNum) {
+                                        var entriesPerPage = 10; // Jumlah entri per halaman
+                                        var startIndex = (pageNum - 1) * entriesPerPage; // Indeks awal data untuk halaman tersebut
+                                        var endIndex = startIndex + entriesPerPage; // Indeks akhir data untuk halaman tersebut
+
+                                        // Semua baris tabel
+                                        var tableRows = document.querySelectorAll('.table-striped tbody tr');
+
+                                        // Sembunyikan semua baris
+                                        tableRows.forEach(function(row) {
+                                            row.style.display = 'none';
+                                        });
+
+                                        // Tampilkan baris untuk halaman yang dipilih
+                                        for (var i = startIndex; i < endIndex && i < tableRows.length; i++) {
+                                            tableRows[i].style.display = 'table-row';
+                                        }
+
+                                        currentPageNum = pageNum; // Perbarui nomor halaman saat ini
+                                    }
+
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Ambil jumlah total entri dari tabel
+                                        var totalEntries = document.querySelectorAll('.table-striped tbody tr').length;
+
+                                        // Tentukan jumlah halaman
+                                        var totalPages = Math.ceil(totalEntries / 10); // Misalnya, menampilkan 10 entri per halaman
+
+                                        // Dapatkan elemen ul pagination
+                                        var pagination = document.getElementById('pagination');
+
+                                        // Kosongkan ul pagination
+                                        pagination.innerHTML = '';
+
+                                        // Tambahkan tombol Sebelumnya
+                                        pagination.innerHTML += '<li class="page-item disabled"><a href="#" class="page-link" onclick="showPreviousPage()">Sebelumnya</a></li>';
+
+                                        // Tambahkan nomor halaman
+                                        for (var i = 1; i <= totalPages; i++) {
+                                            // Tambahkan nomor halaman dengan kelas aktif pada halaman pertama
+                                            if (i === 1) {
+                                                pagination.innerHTML += '<li class="page-item active"><a href="#" class="page-link" onclick="showPage(' + i + ')">' + i + '</a></li>';
+                                            } else {
+                                                pagination.innerHTML += '<li class="page-item"><a href="#" class="page-link" onclick="showPage(' + i + ')">' + i + '</a></li>';
+                                            }
+                                        }
+
+                                        // Tambahkan tombol Berikutnya
+                                        pagination.innerHTML += '<li class="page-item"><a href="#" class="page-link" onclick="showNextPage()">Berikutnya</a></li>';
+
+                                        // Tampilkan halaman pertama saat halaman dimuat
+                                        showPage(1);
+                                    });
+
+                                    // Fungsi untuk menampilkan halaman sebelumnya
+                                    function showPreviousPage() {
+                                        if (currentPageNum > 1) {
+                                            currentPageNum--;
+                                            showPage(currentPageNum);
+                                        }
+                                    }
+
+                                    // Fungsi untuk menampilkan halaman berikutnya
+                                    function showNextPage() {
+                                        var totalPages = document.querySelectorAll('.pagination .page-item').length - 2; // Mendapatkan jumlah total halaman
+                                        if (currentPageNum < totalPages) {
+                                            currentPageNum++;
+                                            showPage(currentPageNum);
+                                        }
+                                    }
+                                </script>
+
+                            </body>
 
 </html>

@@ -22,7 +22,7 @@ class RegisterController extends Controller
         // $pegawai->konfirmasi_password = $request->konfirmasi_password;
         $pegawai->save();
 
-        return redirect()->route('login')->with('success', 'Akun berhasil dibuat. Silakan login.');
+        return redirect()->route('login')->with('success', 'Sandi Telah di Reset. Silakan login.');
     }
 
 
