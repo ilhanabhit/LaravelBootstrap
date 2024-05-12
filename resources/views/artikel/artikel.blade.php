@@ -409,12 +409,16 @@
                                                             <td>{{ $artikel->id_artikel }}</td>
                                                             <td>{{ $artikel->judul }}</td>
                                                             <td>{{ $artikel->tanggal_publikasi }}</td>
-                                                            <td>{{ $artikel->img_artikel }}</td>
+                                                            <td><img src="{{ asset($artikel->img_artikel) }}" width="100px" alt="">
+</td>
                                                             <td>{{ Str::limit($artikel->isi_artikel, 50) }}</td>
                                                             <td>{{ $artikel->nip }}</td>
                                                             <td>
                                                                 <!-- Trigger/Edit Button -->
-                                                                <a href="#editEmployeeModal" class="edit" data-toggle="modal" data-id="{{ $artikel->id_artikel }}" data-judul="{{ $artikel->judul }}" data-tanggal="{{ $artikel->tanggal_publikasi }}" data-gambar="{{ $artikel->img_artikel }}" data-isi="{{ $artikel->isi_artikel }}" data-nip="{{ $artikel->nip }}">
+                                                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"
+                                                                 data-id="{{ $artikel->id_artikel }}" data-judul="{{ $artikel->judul }}" 
+                                                                 data-tanggal="{{ $artikel->tanggal_publikasi }}" data-gambar="{{ $artikel->img_artikel }}" 
+                                                                 data-isi="{{ $artikel->isi_artikel }}" data-nip="{{ $artikel->nip }}">
                                                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                                                 </a>
 
@@ -477,7 +481,7 @@
                                     <div id="addEmployeeModal" class="modal fade">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="{{ route('insertartikel') }}" method="POST">
+                                                <form action="{{ route('insertartikel') }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Tambah Data</h4>
@@ -498,7 +502,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Gambar Artikel</label>
-                                                            <input type="file" class="form-control" name="img_artikel" accept="image/*" required>
+                                                            <input type="file" class="form-control" name="img_artikel"  required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Isi Artikel</label>

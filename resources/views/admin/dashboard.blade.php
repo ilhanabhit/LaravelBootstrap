@@ -25,7 +25,7 @@
                 </button>
             </nav>
 
-            
+
 
 
             <!-- Content Row -->
@@ -39,7 +39,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         laki-laki</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{  $data->where('jenis_kelamin', 'Laki-laki')->count();}}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-male fa-2x text-gray-300"></i>
@@ -58,7 +58,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                         Perempuan</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{  $data->where('jenis_kelamin', 'Perempuan')->count();}}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-female fa-2x text-gray-300"></i>
@@ -77,7 +77,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Orang Sakit</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$rekammedis->count();}}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-procedures fa-2x text-gray-300"></i>
@@ -96,7 +96,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Total</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">30</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data->count() + $rekammedis->count()}}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -128,18 +128,20 @@
                                     labels: ['Laki-laki', 'Perempuan', 'Orang Sakit'],
                                     datasets: [{
                                         label: 'Jumlah',
-                                        data: [10, 15, 5, 20], // Tambahkan nilai baru untuk jumlah
+                                        data: [ {{  $data->where('jenis_kelamin', 'Laki-laki')->count()}}
+                                            , {{  $data->where('jenis_kelamin', 'Perempuan')->count();}}
+                                            , {{$rekammedis->count()}}], // Tambahkan nilai baru untuk jumlah
                                         backgroundColor: [
                                             '#68D2E8', // Warna untuk laki-laki
                                             '#0A6847', // Warna untuk perempuan
                                             '#F3CA52', // Warna untuk orang sakit
-                                            
+
                                         ],
                                         borderColor: [
                                             '#68D2E8', // Warna garis batas untuk laki-laki
                                             '#0A6847', // Warna garis batas untuk perempuan
                                             '#F3CA52', // Warna garis batas untuk orang sakit
-                                            
+
                                         ],
                                         borderWidth: 1
                                     }]
@@ -162,7 +164,7 @@
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                           
+
                             <canvas id="genderChart" width="100" height="50"></canvas>
                         </div>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -175,7 +177,9 @@
                                     labels: ['Laki-laki', 'Perempuan'],
                                     datasets: [{
                                         label: 'Jenis Kelamin',
-                                        data: [10, 15], // Ubah nilai sesuai dengan data yang sesuai
+                                        data: [{{  $data->where('jenis_kelamin', 'Laki-laki')->count()}},
+                                        {{  $data->where('jenis_kelamin', 'Perempuan')->count();}}
+                                        ], // Ubah nilai sesuai dengan data yang sesuai
                                         backgroundColor: [
                                             '#68D2E8', // Warna untuk laki-laki
                                             '#0A6847' // Warna untuk perempuan
@@ -213,7 +217,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
+                                <span aria-hidden="true"></span>
                             </button>
                         </div>
                         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
@@ -247,18 +251,19 @@
                 <i class="fa-regular fa-moon"></i>
                 <i class="fa-regular fa-sun"></i>
             </a>
-            <!-- <footer class="footer">
-            <div class="container-fluid">
-                <div class="row text-muted">
-                    <div class="col-6 text-start">
-                        <p class="mb-0">
-                            <a href="#" class="text-muted">
-                            </a>
-                        </p>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a href="#" class="text-muted">
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer> -->
+            </footer>
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>

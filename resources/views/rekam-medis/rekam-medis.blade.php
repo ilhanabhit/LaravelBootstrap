@@ -558,7 +558,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>NIK*</label>
-                                                            <input type="number" class="form-control" name="nik" required>
+                                                            <input type="number" class="form-control" name="nik" required readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Tanggal Periksa*</label>

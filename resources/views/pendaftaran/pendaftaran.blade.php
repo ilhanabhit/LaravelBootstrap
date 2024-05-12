@@ -550,7 +550,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>NIK*</label>
-                                                            <input type="text" class="form-control" name="nik" required>
+                                                            <input type="text" class="form-control" name="nik" required readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>ID Poli*</label>

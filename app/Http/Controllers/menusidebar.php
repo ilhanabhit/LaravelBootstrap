@@ -17,16 +17,26 @@ class menusidebar extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $data = pasien::getAllPasien();
+        $rekammedis = rekammedis::getData();
+        // dd($rekammedis);
+
+        return view('admin.dashboard', [
+            'data' => $data,
+            'rekammedis' => $rekammedis,
+
+        ]);
     }
     public function dataPasien()
     {
         $tabel = pasien::getdata();
 
-        return view('data-pasien.data-pasien',
-    [
-        'tabel' => $tabel,
-    ]);
+        return view(
+            'data-pasien.data-pasien',
+            [
+                'tabel' => $tabel,
+            ]
+        );
     }
 
     public function datapegawai()
@@ -39,29 +49,35 @@ class menusidebar extends Controller
     {
         $tabel = rekammedis::getdata();
 
-        return view('rekam-medis.rekam-medis',
-        [
-            'tabel' => $tabel,
-        ]);
+        return view(
+            'rekam-medis.rekam-medis',
+            [
+                'tabel' => $tabel,
+            ]
+        );
     }
 
     public function pendaftaran()
     {
         $tabel = pendaftaran::getData();
-        
-        return view('pendaftaran.pendaftaran',
-        [
-            'tabel' => $tabel,
-        ]);
+
+        return view(
+            'pendaftaran.pendaftaran',
+            [
+                'tabel' => $tabel,
+            ]
+        );
     }
 
     public function artikel()
     {
         $tabel = artikel::getData();
 
-        return view('artikel.artikel',
-        [
-            'tabel' => $tabel,
-        ]);
+        return view(
+            'artikel.artikel',
+            [
+                'tabel' => $tabel,
+            ]
+        );
     }
 }
