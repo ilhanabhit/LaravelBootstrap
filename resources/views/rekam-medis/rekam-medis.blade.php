@@ -423,7 +423,14 @@
                                                                 / {{ $rekam_medis->tinggi_badan }} Cm</>
                                                             <td>
                                                                 <!-- Trigger/Edit Button -->
-                                                                <a href="#editEmployeeModal" class="edit" data-toggle="modal" data-rekammedis="{{ $rekam_medis->id_rekammedis }}" data-poli="{{ $rekam_medis->id_poli }}" data-nik="{{ $rekam_medis->nik }}" data-tanggal="{{ $rekam_medis->tanggal_periksa }}" data-riwayat="{{ $rekam_medis->riwayat_penyakit }}" data-tekanan="{{ $rekam_medis->tekanan_darah }}" data-berat="{{ $rekam_medis->berat_badan }}" data-tinggi="{{ $rekam_medis->tinggi_badan }}">
+                                                                <a href="#editEmployeeModal" class="edit" data-toggle="modal" data-rekammedis="{{ $rekam_medis->id_rekammedis }}"
+                                                                 data-poli="{{ $rekam_medis->id_poli }}" 
+                                                                 data-nik="{{ $rekam_medis->nik }}" 
+                                                                 data-tanggal="{{ $rekam_medis->tanggal_periksa }}" 
+                                                                 data-riwayat="{{ $rekam_medis->riwayat_penyakit }}" 
+                                                                 data-tekanan="{{ $rekam_medis->tekanan_darah }}" 
+                                                                 data-berat="{{ $rekam_medis->berat_badan }}" 
+                                                                 data-tinggi="{{ $rekam_medis->tinggi_badan }}">
                                                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                                                 </a>
                                                                 <!-- Delete Button -->
@@ -501,9 +508,17 @@
                                                             <input type="number" class="form-control" name="id_rekammedis" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>ID Poli*</label>
-                                                            <input type="text" class="form-control" name="id_poli" required>
+                                                            <label for="id_poli">ID Poli*</label>
+                                                            <select class="form-control" name="id_poli" required>
+                                                                <option value="POLI01">POLI01</option>
+                                                                <option value="POLI02">POLI02</option>
+                                                                <option value="POLI03">POLI03</option>
+                                                                <option value="POLI04">POLI04</option>
+                                                                <option value="POLI05">POLI05</option>
+                                                                <option value="POLI06">POLI06</option>
+                                                            </select>
                                                         </div>
+
                                                         <div class="form-group">
                                                             <label>NIK*</label>
                                                             <input type="number" class="form-control" name="nik" required>
@@ -553,8 +568,15 @@
                                                             <input type="number" class="form-control" name="id_rekammedis" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>ID Poli*</label>
-                                                            <input type="text" class="form-control" name="id_poli" required>
+                                                            <label for="id_poli">ID Poli*</label>
+                                                            <select class="form-control" name="id_poli" required>
+                                                                <option value="POLI01">POLI01</option>
+                                                                <option value="POLI02">POLI02</option>
+                                                                <option value="POLI03">POLI03</option>
+                                                                <option value="POLI04">POLI04</option>
+                                                                <option value="POLI05">POLI05</option>
+                                                                <option value="POLI06">POLI06</option>
+                                                            </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>NIK*</label>

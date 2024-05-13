@@ -18,8 +18,8 @@
         <div class="form-container sign-up">
             <form id="form-register" action="{{ route('register') }}" method="post">
                 @csrf
-                <h1 style="margin-bottom: 10px;">Buat Akun</h1>
-                <span>Lupa Sandi</span>
+                <h1 style="margin-bottom: 10px;">Lupa Sandi</h1>
+                
                 <input type="number" name="nip" placeholder="NIP">
                 <input type="password" name="kata_sandi" id="kata_sandi" placeholder="Kata Sandi Baru">
                 <input type="password" name="konfirmasi_kata_sandi" id="konfirmasi_kata_sandi" placeholder="Konfirmasi Kata Sandi">
