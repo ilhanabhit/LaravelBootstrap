@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use function Laravel\Prompts\table;
+// use function Laravel\Prompts\table;
 
 class artikel extends Model
 {
-    use HasFactory;
-
-    protected $table = 'artikel'; // Mengubah nama tabel sesuai dengan nama tabel yang sesuai di database Anda
+    protected $table = 'artikel';
+    protected $primaryKey = 'id_artikel';
 
     protected $fillable = [
         'id_artikel',
@@ -19,7 +18,9 @@ class artikel extends Model
         'tanggal_publikasi',
         'img_artikel',
         'isi_artikel',
-        'nip'
+        'nip',
+        'created_at',
+        'updated_at'
     ];
 
     // Jika diperlukan, Anda dapat menambahkan relasi atau metode lain di sini

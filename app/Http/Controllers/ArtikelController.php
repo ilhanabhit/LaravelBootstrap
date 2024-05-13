@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\artikel; // Mengubah namespace model menjadi Artikel
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ArtikelController extends Controller
@@ -66,48 +67,55 @@ class ArtikelController extends Controller
      * Show the form for editing the specified resource.
      */
     public function update(Request $request)
-{
-    try {
-        // Validasi input
-        $request->validate([
-            'id_artikel' => 'required|exists:artikels,id',
-            'judul' => 'required',
-            'tanggal_publikasi' => 'required|date',
-            'isi_artikel' => 'required|string',
-            'nip' => 'required',
-            'img_artikel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Menambahkan validasi untuk gambar
-        ]);
+    {
+        try {
+            // Validasi input
+            $request->validate([
+                'id_artikel' => 'required',
+                'judul' => 'required',
+                'tanggal_publikasi' => 'required|date',
+                'isi_artikel' => 'required|string',
+                'nip' => 'required',
+                'img_artikel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Menambahkan validasi untuk gambar
+            ]);
 
-        // Ambil artikel berdasarkan ID
-        $artikel = Artikel::findOrFail($request->id_artikel);
+            // Ambil artikel berdasarkan ID
+            $artikel = artikel::where('id_artikel', $request->id_artikel)->first();
 
-        // Update data artikel
-        $artikel->judul = $request->judul;
-        $artikel->tanggal_publikasi = $request->tanggal_publikasi;
-        $artikel->isi_artikel = $request->isi_artikel;
-        $artikel->nip = $request->nip;
+            // Update data artikel
+            $artikel->judul = $request->judul;
+            $artikel->tanggal_publikasi = $request->tanggal_publikasi;
+            $artikel->isi_artikel = $request->isi_artikel;
+            $artikel->nip = $request->nip;
 
-        // Cek apakah gambar baru diunggah
-        if ($request->hasFile('img_artikel')) {
-            // Simpan gambar baru
-            $imagePath = $request->file('img_artikel')->store('gambar');
-            $artikel->img_artikel = $imagePath;
+            // Cek apakah gambar baru diunggah
+            // dd($request->file('img_artikel'));
+            if ($request->hasFile('img_artikel')) {
+                $imagePath = $request->file('img_artikel');
+                $tujuan = 'gambar';
+                $nama = $tujuan . '/' . time() . '_' . $imagePath->getClientOriginalName();
+                $imagePath->move($tujuan, $nama);
+                $artikel->img_artikel = $nama;
+            }
+
+            // Simpan perubahan
+            $artikel->save();
+
+            // Redirect ke halaman atau tampilkan pesan sukses
+            return redirect()->back()->with('success', 'Data artikel berhasil diperbarui');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Artikel tidak ditemukan.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Tangani kesalahan validasi
+            $errorMessage = $e->validator->errors()->first(); // Ambil pesan kesalahan pertama
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        } catch (\Exception $e) {
+            // Tangani error umum
+            return redirect()->back()->with('error', 'Gagal memperbarui artikel. Error: ' . $e->getMessage());
         }
-
-        // Simpan perubahan
-        $artikel->save();
-
-        // Redirect ke halaman atau tampilkan pesan sukses
-        return redirect()->back()->with('success', 'Data artikel berhasil diperbarui');
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-        return redirect()->back()->with('error', 'Artikel tidak ditemukan.');
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        return redirect()->back()->withErrors($e->validator);
-    } catch (\Exception $e) {
-        // Tangani error umum
-        return redirect()->back()->with('error', 'Gagal memperbarui artikel. Silakan coba lagi.');
     }
-}
+
+
 
 
     public function insert(Request $request)
@@ -124,11 +132,11 @@ class ArtikelController extends Controller
             ]);
 
             // Menyimpan gambar
-            $imagePath = $request->file('img_artikel'); 
+            $imagePath = $request->file('img_artikel');
             // $nama = time().'_'. $imagePath->getClientOriginalName();
 
             $tujuan = 'gambar';
-            $nama = $tujuan.'/'.time().'_'. $imagePath->getClientOriginalName();
+            $nama = $tujuan . '/' . time() . '_' . $imagePath->getClientOriginalName();
             $imagePath->move($tujuan, $nama);
             $validatedData['img_artikel'] = $nama;
 

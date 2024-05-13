@@ -71,38 +71,48 @@ class RekamController extends Controller
      */
     // Method untuk update data rekam medis
     public function update(Request $request)
-    {
+{
+    try {
         // Validasi input
         $request->validate([
             'id_rekammedis' => 'required',
-            'id_poli' => 'required',
+            'id_poli' => 'required|exists:poli_puskesmas,id_poli', // Memastikan id_poli yang dimasukkan ada dalam tabel poli_puskesmas
             'nik' => 'required',
-            'tanggal_periksa' => 'required',
-            'riwayat_penyakit' => 'required',
-            'tekanan_darah' => 'required',
-            'berat_badan' => 'required',
-            'tinggi_badan' => 'required',
+            'tanggal_periksa' => 'required|date',
+            'riwayat_penyakit' => 'required|string',
+            'tekanan_darah' => 'required|string',
+            'berat_badan' => 'required|numeric',
+            'tinggi_badan' => 'required|numeric',
+        ], [
+            'id_poli.exists' => 'ID Poli yang dipilih tidak valid.', // Pesan kustom untuk validasi id_poli yang tidak valid
         ]);
 
-        try {
-            // Update data rekam medis berdasarkan ID
-            RekamMedis::where('id_rekammedis', $request->id_rekammedis)->update([
-                'id_poli' => $request->id_poli,
-                'nik' => $request->nik,
-                'tanggal_periksa' => $request->tanggal_periksa,
-                'riwayat_penyakit' => $request->riwayat_penyakit,
-                'tekanan_darah' => $request->tekanan_darah,
-                'berat_badan' => $request->berat_badan,
-                'tinggi_badan' => $request->tinggi_badan,
-            ]);
+        // Ambil data rekam medis berdasarkan ID
+        $rekamMedis = RekamMedis::findOrFail($request->id_rekammedis);
 
-            // Redirect ke halaman atau tampilkan pesan sukses
-            return redirect()->back()->with('success', 'Data rekam medis berhasil diperbarui');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Tangani error validasi
-            return redirect()->back()->withErrors($e->errors())->withInput();
-        } 
+        // Update data rekam medis
+        $rekamMedis->id_poli = $request->id_poli;
+        $rekamMedis->nik = $request->nik;
+        $rekamMedis->tanggal_periksa = $request->tanggal_periksa;
+        $rekamMedis->riwayat_penyakit = $request->riwayat_penyakit;
+        $rekamMedis->tekanan_darah = $request->tekanan_darah;
+        $rekamMedis->berat_badan = $request->berat_badan;
+        $rekamMedis->tinggi_badan = $request->tinggi_badan;
+
+        // Simpan perubahan
+        $rekamMedis->save();
+
+        // Redirect ke halaman atau tampilkan pesan sukses
+        return redirect()->back()->with('success', 'Data rekam medis berhasil diperbarui');
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return redirect()->back()->with('error', 'Rekam medis tidak ditemukan.');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return redirect()->back()->withErrors($e->validator);
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal memperbarui data rekam medis. Silakan coba lagi.');
     }
+}
+
 
 
 

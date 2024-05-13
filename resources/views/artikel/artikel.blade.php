@@ -525,7 +525,7 @@
                                     <div id="editEmployeeModal" class="modal fade">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="{{ route('updateartikel') }}" method="POST">
+                                                <form action="{{ route('updateartikel') }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Edit Data</h4>
@@ -616,7 +616,7 @@
                                     var id = $(this).data('id');
                                     var judul = $(this).data('judul');
                                     var tanggal = $(this).data('tanggal');
-                                    var gambar = $(this).data('gambar');
+                                    // var gambar = $(this).data('gambar');
                                     var isi = $(this).data('isi');
                                     var nip = $(this).data('nip');
 
@@ -624,7 +624,7 @@
                                     $('#editEmployeeModal input[name="id_artikel"]').val(id);
                                     $('#editEmployeeModal input[name="judul"]').val(judul);
                                     $('#editEmployeeModal input[name="tanggal_publikasi"]').val(tanggal);
-                                    $('#editEmployeeModal input[name="img_artikel"]').val(gambar);
+                                    // $('#editEmployeeModal input[name="img_artikel"]').val(gambar);
                                     $('#editEmployeeModal textarea[name="isi_artikel"]').val(isi);
                                     $('#editEmployeeModal input[name="nip"]').val(nip);
                                 });
