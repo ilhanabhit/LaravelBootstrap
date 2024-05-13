@@ -124,45 +124,55 @@ class ArtikelController extends Controller
             // Validasi input sesuai kebutuhan
             $validatedData = $request->validate([
                 'id_artikel' => 'required|string|max:255|unique:artikel,id_artikel', // Pastikan id artikel unik
-                'judul' => 'required|string|max:255|unique:artikel,judul', // Pastikan judul unik
+                'judul' => 'required|string|max:255|unique:artikel,judul', // Pastikan judul unik dan tidak melebihi panjang maksimum
                 'tanggal_publikasi' => 'required|date',
                 'img_artikel' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Pastikan img_artikel unik dan format gambar yang diizinkan
                 'isi_artikel' => 'required|string',
                 'nip' => 'required|string|max:255|exists:pegawai,nip', // Pastikan nip ada di tabel pegawai
             ]);
-
+    
+            // Memeriksa panjang judul
+            if (strlen($validatedData['judul']) > 255) {
+                throw new \Exception('Panjang judul melebihi batas maksimum.');
+            }
+    
             // Menyimpan gambar
-            $imagePath = $request->file('img_artikel');
-            // $nama = time().'_'. $imagePath->getClientOriginalName();
-
-            $tujuan = 'gambar';
-            $nama = $tujuan . '/' . time() . '_' . $imagePath->getClientOriginalName();
-            $imagePath->move($tujuan, $nama);
-            $validatedData['img_artikel'] = $nama;
-
-            // Memasukkan data artikel baruy
+            if ($request->hasFile('img_artikel')) {
+                $imagePath = $request->file('img_artikel');
+                $nama = 'gambar/' . time() . '_' . $imagePath->getClientOriginalName();
+                $imagePath->move(public_path('gambar'), $nama);
+                $validatedData['img_artikel'] = $nama;
+            }
+    
+            // Memasukkan data artikel baru
             $artikel = Artikel::create($validatedData); // Menggunakan model Artikel untuk menyimpan data
-
+    
             // Set flash message
             session()->flash('success', 'Data Artikel berhasil disimpan!');
-
+    
             // Redirect ke halaman index dengan notifikasi success
             return redirect()->route('artikel');
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Tangkap eksepsi validasi
             $errorMessage = $e->getMessage();
-
+    
             // Kembalikan ke halaman sebelumnya dengan pesan error validasi
             return back()->withErrors('Gagal menyimpan Artikel. Error: ' . $errorMessage);
         } catch (\Illuminate\Database\QueryException $e) {
             // Tangkap eksepsi query exception dan ambil pesan kesalahannya
             $sqlErrorMessage = $e->getMessage();
-
+    
             // Kembalikan ke halaman sebelumnya dengan pesan error SQL
             return back()->withErrors('Gagal menyimpan Artikel. Error SQL: ' . $sqlErrorMessage);
+        } catch (\Exception $e) {
+            // Tangkap eksepsi umum
+            $errorMessage = $e->getMessage();
+    
+            // Kembalikan ke halaman sebelumnya dengan pesan error umum
+            return back()->withErrors('Gagal menyimpan Artikel. Error: ' . $errorMessage);
         }
     }
-
+    
 
 
     /**
