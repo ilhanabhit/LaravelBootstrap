@@ -501,15 +501,8 @@
                                                             <input type="number" class="form-control" name="id_rekammedis" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="id_poli">ID Poli*</label>
-                                                            <select class="form-control" name="id_poli" id="id_poli" required>
-                                                                <option value="POLI01">POLI01</option>
-                                                                <option value="POLI02">POLI02</option>
-                                                                <option value="POLI03">POLI03</option>
-                                                                <option value="POLI04">POLI04</option>
-                                                                <option value="POLI05">POLI05</option>
-                                                                <option value="POLI06">POLI06</option>
-                                                            </select>
+                                                            <label>ID Poli*</label>
+                                                            <input type="text" class="form-control" name="id_poli" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>NIK*</label>
@@ -560,17 +553,9 @@
                                                             <input type="number" class="form-control" name="id_rekammedis" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="id_poli">ID Poli*</label>
-                                                            <select class="form-control" name="id_poli" id="id_poli" required>
-                                                                <option value="POLI01">POLI01</option>
-                                                                <option value="POLI02">POLI02</option>
-                                                                <option value="POLI03">POLI03</option>
-                                                                <option value="POLI04">POLI04</option>
-                                                                <option value="POLI05">POLI05</option>
-                                                                <option value="POLI06">POLI06</option>
-                                                            </select>
+                                                            <label>ID Poli*</label>
+                                                            <input type="text" class="form-control" name="id_poli" required>
                                                         </div>
-
                                                         <div class="form-group">
                                                             <label>NIK*</label>
                                                             <input type="number" class="form-control" name="nik" required readonly>
