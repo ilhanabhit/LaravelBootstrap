@@ -139,7 +139,7 @@ public function insert(Request $request)
         $pendaftaran->save(); 
 
         // Set flash message
-        session()->flash('success', 'Data Pendaftaran berhasil disimpan!');
+        session()->flash('success', 'Data Antrian berhasil disimpan!');
 
         // Redirect ke halaman index dengan notifikasi success
         return redirect()->route('pendaftaran');

@@ -409,8 +409,7 @@
                                                             <td>{{ $artikel->id_artikel }}</td>
                                                             <td>{{ $artikel->judul }}</td>
                                                             <td>{{ $artikel->tanggal_publikasi }}</td>
-                                                            <td><img src="{{ asset($artikel->img_artikel) }}" width="100px" alt="">
-</td>
+                                                            <td><img src="{{ asset($artikel->img_artikel) }}" width="100px" alt=""></td>
                                                             <td>{{ Str::limit($artikel->isi_artikel, 50) }}</td>
                                                             <td>{{ $artikel->nip }}</td>
                                                             <td>
@@ -547,7 +546,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Gambar Artikel</label>
-                                                            <input type="file" class="form-control" name="img_artikel" accept="image/*" required>
+                                                            <input type="file" class="form-control" name="img_artikel"  required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Isi Artikel</label>

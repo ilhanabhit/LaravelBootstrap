@@ -66,50 +66,48 @@ class ArtikelController extends Controller
      * Show the form for editing the specified resource.
      */
     public function update(Request $request)
-    {
-        try {
-            // Validasi input
-            $request->validate([
-                'id_artikel' => 'required',
-                'judul' => 'required',
-                'tanggal_publikasi' => 'required|date',
-                'isi_artikel' => 'required',
-                'nip' => 'required',
-                'img_artikel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Menambahkan validasi untuk gambar
-            ]);
+{
+    try {
+        // Validasi input
+        $request->validate([
+            'id_artikel' => 'required|exists:artikels,id',
+            'judul' => 'required',
+            'tanggal_publikasi' => 'required|date',
+            'isi_artikel' => 'required|string',
+            'nip' => 'required',
+            'img_artikel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Menambahkan validasi untuk gambar
+        ]);
 
-            // Ambil artikel berdasarkan ID
-            $artikel = Artikel::find($request->id_artikel);
+        // Ambil artikel berdasarkan ID
+        $artikel = Artikel::findOrFail($request->id_artikel);
 
-            // Update data artikel
-            $artikel->judul = $request->judul;
-            $artikel->tanggal_publikasi = $request->tanggal_publikasi;
-            $artikel->isi_artikel = $request->isi_artikel;
-            $artikel->nip = $request->nip;
+        // Update data artikel
+        $artikel->judul = $request->judul;
+        $artikel->tanggal_publikasi = $request->tanggal_publikasi;
+        $artikel->isi_artikel = $request->isi_artikel;
+        $artikel->nip = $request->nip;
 
-            // Cek apakah gambar baru diunggah
-            if ($request->hasFile('img_artikel')) {
-                // Simpan gambar baru
-                $imagePath = $request->file('img_artikel')->store('public/images');
-                $artikel->img_artikel = $imagePath;
-            }
-
-            // Simpan perubahan
-            $artikel->save();
-
-            // Redirect ke halaman atau tampilkan pesan sukses
-            return redirect()->back()->with('success', 'Data artikel berhasil diperbarui');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Tangani error validasi
-            $validationErrors = $e->validator->errors();
-
-            // Tampilkan pesan error sesuai dengan aturan validasi
-            $errorMessage = $e->getMessage();
-
-            return redirect()->back()->withErrors($errorMessage);
+        // Cek apakah gambar baru diunggah
+        if ($request->hasFile('img_artikel')) {
+            // Simpan gambar baru
+            $imagePath = $request->file('img_artikel')->store('gambar');
+            $artikel->img_artikel = $imagePath;
         }
-    }
 
+        // Simpan perubahan
+        $artikel->save();
+
+        // Redirect ke halaman atau tampilkan pesan sukses
+        return redirect()->back()->with('success', 'Data artikel berhasil diperbarui');
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return redirect()->back()->with('error', 'Artikel tidak ditemukan.');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return redirect()->back()->withErrors($e->validator);
+    } catch (\Exception $e) {
+        // Tangani error umum
+        return redirect()->back()->with('error', 'Gagal memperbarui artikel. Silakan coba lagi.');
+    }
+}
 
 
     public function insert(Request $request)
