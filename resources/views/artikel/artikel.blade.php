@@ -483,7 +483,7 @@
                                                 <form action="{{ route('insertartikel') }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Tambah Data</h4>
+                                                        <h4 class="modal-title">Tambah Data Artikel</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                     </div>
                                                     <div class="modal-body">

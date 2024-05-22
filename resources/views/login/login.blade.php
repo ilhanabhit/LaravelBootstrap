@@ -18,33 +18,14 @@
         <div class="form-container sign-up">
             <form id="form-register" action="{{ route('register') }}" method="post">
                 @csrf
-                <h1 style="margin-bottom: 10px;">Lupa Sandi</h1>
-                
+                <h1 style="margin-bottom: 10px;">Lupa Sandi</h1>            
                 <input type="number" name="nip" placeholder="NIP">
                 <input type="password" name="kata_sandi" id="kata_sandi" placeholder="Kata Sandi Baru">
                 <input type="password" name="konfirmasi_kata_sandi" id="konfirmasi_kata_sandi" placeholder="Konfirmasi Kata Sandi">
                 <p id="pesan_konfirmasi" style="color: red; display: none;">Konfirmasi kata sandi tidak cocok!</p>
-                <button type="submit" id="submit_button" disabled>Konfirmasi</button>
-                
+                <button type="submit" id="submit_button" disabled>Konfirmasi</button>                
             </form>
-
-            <script>
-                document.getElementById("konfirmasi_kata_sandi").addEventListener("keyup", function() {
-                    var kataSandiBaru = document.getElementById("kata_sandi").value;
-                    var konfirmasiKataSandi = this.value;
-                    var submitButton = document.getElementById("submit_button");
-                    var pesanKonfirmasi = document.getElementById("pesan_konfirmasi");
-
-                    if (kataSandiBaru === konfirmasiKataSandi) {
-                        submitButton.disabled = false;
-                        pesanKonfirmasi.style.display = "none";
-                    } else {
-                        submitButton.disabled = true;
-                        pesanKonfirmasi.style.display = "block";
-                    }
-                });
-            </script>
-
+            
         </div>
         <div class="form-container sign-in">
             <form action="{{ route('login')}}" method="post">
@@ -79,6 +60,23 @@
         </div>
     </div>
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script>
+                document.getElementById("konfirmasi_kata_sandi").addEventListener("keyup", function() {
+                    var kataSandiBaru = document.getElementById("kata_sandi").value;
+                    var konfirmasiKataSandi = this.value;
+                    var submitButton = document.getElementById("submit_button");
+                    var pesanKonfirmasi = document.getElementById("pesan_konfirmasi");
+
+                    if (kataSandiBaru === konfirmasiKataSandi) {
+                        submitButton.disabled = false;
+                        pesanKonfirmasi.style.display = "none";
+                    } else {
+                        submitButton.disabled = true;
+                        pesanKonfirmasi.style.display = "block";
+                    }
+                });
+            </script>
+
 </body>
 
 </html>

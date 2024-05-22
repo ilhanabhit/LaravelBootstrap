@@ -73,12 +73,22 @@ class PendaftaranController extends Controller
         $request->validate([
             'id_pendaftaran' => 'required',
             'id_poli' => 'required',
-            'nik' => 'required|string|size:16', // Atur panjang NIK menjadi 16 angka
+            'nik' => 'required|string|size:16|regex:/^\d+$/', // Atur panjang NIK menjadi 16 angka dan memastikan hanya angka yang diterima
             'tanggal_pendaftaran' => 'required|date',
             'deskripsi_keluhan' => 'required',
             'status_pendaftaran' => 'required',
             'antrian' => 'required',
         ]);
+
+        // Memeriksa apakah nomor antrian sudah digunakan untuk status pendaftaran yang sama
+        $existingAntrian = Pendaftaran::where('status_pendaftaran', $request->status_pendaftaran)
+                                      ->where('antrian', $request->antrian)
+                                      ->where('id_pendaftaran', '!=', $request->id_pendaftaran) // Exclude current record from check
+                                      ->exists();
+        if ($existingAntrian) {
+            // Jika nomor antrian sudah digunakan untuk status pendaftaran yang sama, kembalikan pesan error
+            return redirect()->back()->withErrors('Nomor antrian tersebut sudah digunakan untuk status pendaftaran yang sama.');
+        }
 
         // Update data pendaftaran berdasarkan ID
         Pendaftaran::where('id_pendaftaran', $request->id_pendaftaran)->update([
@@ -99,6 +109,8 @@ class PendaftaranController extends Controller
         // Tampilkan pesan error sesuai dengan aturan validasi
         if ($validationErrors->has('nik') && $validationErrors->get('nik')[0] == 'NIK harus terdiri dari 16 angka.') {
             $errorMessage = 'NIK harus terdiri dari 16 angka.';
+        } elseif ($validationErrors->has('nik') && $validationErrors->get('nik')[0] == 'nik tidak valid.') {
+            $errorMessage = 'NIK tidak valid.';
         } else {
             $errorMessage = $e->getMessage();
         }
@@ -107,6 +119,7 @@ class PendaftaranController extends Controller
         return redirect()->back()->withErrors('Gagal memperbarui data pendaftaran. Error: ' . $errorMessage);
     }
 }
+
 
 
 public function insert(Request $request)
@@ -122,6 +135,15 @@ public function insert(Request $request)
             'status_pendaftaran' => 'required|string|max:255',
             'antrian' => 'required|string|max:255',
         ]);
+
+        // Memeriksa apakah nomor antrian sudah digunakan untuk status pendaftaran yang sama
+        $existingAntrian = Pendaftaran::where('status_pendaftaran', $validatedData['status_pendaftaran'])
+                                      ->where('antrian', $validatedData['antrian'])
+                                      ->exists();
+        if ($existingAntrian) {
+            // Jika nomor antrian sudah digunakan untuk status pendaftaran yang sama, kembalikan pesan error
+            return back()->withErrors('Nomor antrian tersebut sudah digunakan untuk status pendaftaran yang sama.');
+        }
 
         // Memasukkan data pendaftaran baru
         $pendaftaran = new Pendaftaran; 

@@ -485,7 +485,7 @@
                                                 <form action="{{ route('insertpendaftaran') }}" method="POST">
                                                     @csrf
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Tambah Data</h4>
+                                                        <h4 class="modal-title">Tambah Data Antrian</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
