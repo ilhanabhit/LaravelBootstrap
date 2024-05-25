@@ -6,7 +6,6 @@
             <a style="margin-left: 10px; color: white;">PUSLINE</a>
         </div>
         <ul class="sidebar-nav">
-
             <li class="sidebar-item">
                 <a href="{{ ('dashboard')}}" class="sidebar-link">
                     <i class="fa-solid fa-list pe-2"></i>

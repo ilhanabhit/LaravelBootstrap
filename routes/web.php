@@ -10,6 +10,7 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RekamController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route as RoutingRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
-Route::get('login', [AuthController::class, 'showLoginForm'])->name('login.login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.login');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 Route::get('dashboard', function () {

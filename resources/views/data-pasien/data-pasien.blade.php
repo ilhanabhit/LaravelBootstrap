@@ -27,8 +27,6 @@
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
