@@ -74,30 +74,28 @@ class RekamController extends Controller
 {
     try {
         // Validasi input
-        $request->validate([
-            'id_rekammedis' => 'required',
-            'id_poli' => 'required|exists:poli_puskesmas,id_poli', // Memastikan id_poli yang dimasukkan ada dalam tabel poli_puskesmas
-            'nik' => 'required',
+        $validatedData = $request->validate([
+            'id_rekammedis' => 'required|exists:rekam_medis,id_rekammedis', 
+            'id_poli' => 'required|exists:poli_puskesmas,id_poli', 
+            'nik' => 'required|exists:masyarakat,nik', 
             'tanggal_periksa' => 'required|date',
             'riwayat_penyakit' => 'required|string',
             'tekanan_darah' => 'required|string',
             'berat_badan' => 'required|numeric',
             'tinggi_badan' => 'required|numeric',
-        ], [
-            'id_poli.exists' => 'ID Poli yang dipilih tidak valid.', // Pesan kustom untuk validasi id_poli yang tidak valid
         ]);
 
         // Ambil data rekam medis berdasarkan ID
-        $rekamMedis = RekamMedis::findOrFail($request->id_rekammedis);
+        $rekamMedis = rekammedis::findOrFail($validatedData['id_rekammedis']);
 
         // Update data rekam medis
-        $rekamMedis->id_poli = $request->id_poli;
-        $rekamMedis->nik = $request->nik;
-        $rekamMedis->tanggal_periksa = $request->tanggal_periksa;
-        $rekamMedis->riwayat_penyakit = $request->riwayat_penyakit;
-        $rekamMedis->tekanan_darah = $request->tekanan_darah;
-        $rekamMedis->berat_badan = $request->berat_badan;
-        $rekamMedis->tinggi_badan = $request->tinggi_badan;
+        $rekamMedis->id_poli = $validatedData['id_poli'];
+        $rekamMedis->nik = $validatedData['nik'];
+        $rekamMedis->tanggal_periksa = $validatedData['tanggal_periksa'];
+        $rekamMedis->riwayat_penyakit = $validatedData['riwayat_penyakit'];
+        $rekamMedis->tekanan_darah = $validatedData['tekanan_darah'];
+        $rekamMedis->berat_badan = $validatedData['berat_badan'];
+        $rekamMedis->tinggi_badan = $validatedData['tinggi_badan'];
 
         // Simpan perubahan
         $rekamMedis->save();
@@ -109,14 +107,15 @@ class RekamController extends Controller
     } catch (\Illuminate\Validation\ValidationException $e) {
         return redirect()->back()->withErrors($e->validator);
     } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Gagal memperbarui data rekam medis. Silakan coba lagi.');
+        return redirect()->back()->with('error', 'error'.$e);
     }
 }
 
 
 
 
-    public function insert(Request $request)
+
+public function insert(Request $request)
 {
     try {
         // Validasi input sesuai kebutuhan
@@ -131,23 +130,23 @@ class RekamController extends Controller
             'tinggi_badan' => 'required|numeric',
         ]);
 
-        // Memeriksa apakah ID Poli dan NIK sudah ada sebelumnya
+        // Memeriksa apakah kombinasi ID Poli dan NIK sudah ada sebelumnya
         $id_poli = $validatedData['id_poli'];
         $nik = $validatedData['nik'];
-        $id = $validatedData['id_rekammedis'];
 
-        $poliExist = DB::table('poli_puskesmas')->where('id_poli', $id_poli)->exists();
-        $masyarakatExist = DB::table('masyarakat')->where('nik', $nik)->exists();
-        $idExist = DB::table('rekam_medis')->where('id_rekammedis', $id)->exists();
+        $combinationExists = DB::table('rekam_medis')
+            ->where('id_poli', $id_poli)
+            ->where('nik', $nik)
+            ->exists();
 
-        if (!$poliExist || !$masyarakatExist || $idExist) {
-            // Jika ID Poli atau NIK tidak ada dalam basis data, atau ID Rekam Medis sudah ada, kembalikan pesan error
+        // Memeriksa apakah ID Rekam Medis sudah ada sebelumnya
+        $idExist = DB::table('rekam_medis')->where('id_rekammedis', $validatedData['id_rekammedis'])->exists();
+
+        if ($combinationExists || $idExist) {
+            // Jika kombinasi ID Poli dan NIK sudah ada atau ID Rekam Medis sudah ada, kembalikan pesan error
             $errorMessage = [];
-            if (!$poliExist) {
-                $errorMessage[] = 'ID Poli tidak valid.';
-            }
-            if (!$masyarakatExist) {
-                $errorMessage[] = 'NIK tidak valid.';
+            if ($combinationExists) {
+                $errorMessage[] = 'Kombinasi ID Poli dan NIK sudah ada.';
             }
             if ($idExist) {
                 $errorMessage[] = 'ID Rekam Medis sudah ada.';
@@ -155,29 +154,29 @@ class RekamController extends Controller
             
             $errorMessages = implode(' ', $errorMessage);
             
-            // Buat notifikasi dalam bahasa Indonesia
-            if (!$poliExist && !$masyarakatExist) {
-                Session::flash('error', 'ID Poli dan NIK tidak valid.');
-            } elseif (!$poliExist) {
-                Session::flash('error', 'ID Poli tidak valid.');
-            } elseif (!$masyarakatExist) {
-                Session::flash('error', 'NIK tidak valid.');
-            } elseif ($idExist) {
-                Session::flash('error', 'ID Rekam Medis sudah ada.');
-            }
-            
-            return redirect()->back();
-        
-        
-            Session::flash('error', implode(' ', $errorMessage));
-            return redirect()->back();
-        } else {
-            // Jika NIK sama dengan NIK yang sudah ada, buat catatan baru
-            $rekamMedis = rekammedis::create($validatedData);
-            Session::flash('success', 'Data Rekam Medis berhasil disimpan!');
+            // Set pesan error dalam session
+            Session::flash('error', $errorMessages);
             return redirect()->back();
         }
-    } catch (QueryException $e) {
+
+        // Menyimpan data rekam medis baru
+        $rekamMedis = rekammedis::create($validatedData);
+
+        // Set flash message
+        Session::flash('success', 'Data Rekam Medis berhasil disimpan!');
+
+        // Redirect ke halaman index dengan notifikasi success
+        return redirect()->route('rekam_medis');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        // Tangkap eksepsi validasi
+        $errorMessage = $e->getMessage();
+
+        // Set pesan error dalam session
+        Session::flash('error', 'Gagal menyimpan Rekam Medis. Error: ' . $errorMessage);
+
+        // Kembalikan ke halaman sebelumnya
+        return redirect()->back();
+    } catch (\Illuminate\Database\QueryException $e) {
         // Tangkap eksepsi query exception dan ambil pesan kesalahannya
         $sqlErrorMessage = $e->getMessage();
 
@@ -185,7 +184,16 @@ class RekamController extends Controller
         Session::flash('error', 'Gagal menyimpan Rekam Medis. Error SQL: ' . $sqlErrorMessage);
 
         // Kembalikan ke halaman sebelumnya
-        return back();
+        return redirect()->back();
+    } catch (\Exception $e) {
+        // Tangkap eksepsi umum
+        $errorMessage = $e->getMessage();
+
+        // Set pesan error dalam session
+        Session::flash('error', 'Gagal menyimpan Rekam Medis. Error: ' . $errorMessage);
+
+        // Kembalikan ke halaman sebelumnya
+        return redirect()->back();
     }
 }
 

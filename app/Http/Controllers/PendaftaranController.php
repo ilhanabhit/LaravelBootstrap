@@ -77,7 +77,7 @@ class PendaftaranController extends Controller
             'tanggal_pendaftaran' => 'required|date',
             'deskripsi_keluhan' => 'required',
             'status_pendaftaran' => 'required',
-            'antrian' => 'required',
+            'antrian' => 'required|integer|min:1', // Validasi untuk memastikan antrian adalah bilangan bulat positif
         ]);
 
         // Memeriksa apakah nomor antrian sudah digunakan untuk status pendaftaran yang sama
@@ -111,6 +111,8 @@ class PendaftaranController extends Controller
             $errorMessage = 'NIK harus terdiri dari 16 angka.';
         } elseif ($validationErrors->has('nik') && $validationErrors->get('nik')[0] == 'nik tidak valid.') {
             $errorMessage = 'NIK tidak valid.';
+        } elseif ($validationErrors->has('antrian') && $validationErrors->get('antrian')[0] == 'The antrian must be at least 1.') {
+            $errorMessage = 'Nomor antrian harus bilangan positif dan tidak boleh 0 atau negatif.';
         } else {
             $errorMessage = $e->getMessage();
         }
@@ -119,7 +121,6 @@ class PendaftaranController extends Controller
         return redirect()->back()->withErrors('Gagal memperbarui data pendaftaran. Error: ' . $errorMessage);
     }
 }
-
 
 
 public function insert(Request $request)
@@ -133,7 +134,7 @@ public function insert(Request $request)
             'tanggal_pendaftaran' => 'required|date',
             'deskripsi_keluhan' => 'required|max:255',
             'status_pendaftaran' => 'required|string|max:255',
-            'antrian' => 'required|string|max:255',
+            'antrian' => 'required|integer|min:1', // Validasi untuk memastikan antrian adalah bilangan bulat positif
         ]);
 
         // Memeriksa apakah nomor antrian sudah digunakan untuk status pendaftaran yang sama
@@ -184,6 +185,7 @@ public function insert(Request $request)
         return back()->withErrors('Gagal menyimpan Pendaftaran. Error: ' . $errorMessage);
     }
 }
+
 
 
     /**

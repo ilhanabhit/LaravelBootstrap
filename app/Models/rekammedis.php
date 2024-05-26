@@ -10,7 +10,7 @@ class rekammedis extends Model
     use HasFactory;
 
     protected $table = 'rekam_medis'; // Ubah nama tabel sesuai dengan nama tabel yang sesuai di database Anda
-
+    protected $primaryKey = 'id_rekammedis';
     protected $fillable = [
         'id_rekammedis',
         'id_poli',

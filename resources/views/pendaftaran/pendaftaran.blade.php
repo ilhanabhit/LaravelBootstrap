@@ -500,12 +500,12 @@
                                                         <div class="form-group">
                                                             <label for="id_poli">ID Poli*</label>
                                                             <select class="form-control" name="id_poli" required>
-                                                                <option value="POLI01">POLI01</option>
-                                                                <option value="POLI02">POLI02</option>
-                                                                <option value="POLI03">POLI03</option>
-                                                                <option value="POLI04">POLI04</option>
-                                                                <option value="POLI05">POLI05</option>
-                                                                <option value="POLI06">POLI06</option>
+                                                                <option value="POLI01">POLI01 (Poli Umum)</option>
+                                                                <option value="POLI02">POLI02 (Poli Gigi)</option>
+                                                                <option value="POLI03">POLI03 (Poli KIA )</option>
+                                                                <option value="POLI04">POLI04 (Poli Gizi)</option>
+                                                                <option value="POLI05">POLI05 (Poli MTBS)</option>
+                                                                <option value="POLI06">POLI06 (Poli Imunisasi)</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -562,12 +562,12 @@
                                                         <div class="form-group">
                                                             <label for="id_poli">ID Poli*</label>
                                                             <select class="form-control" name="id_poli" required>
-                                                                <option value="POLI01">POLI01</option>
-                                                                <option value="POLI02">POLI02</option>
-                                                                <option value="POLI03">POLI03</option>
-                                                                <option value="POLI04">POLI04</option>
-                                                                <option value="POLI05">POLI05</option>
-                                                                <option value="POLI06">POLI06</option>
+                                                                <option value="POLI01">POLI01 (Poli Umum)</option>
+                                                                <option value="POLI02">POLI02 (Poli Gigi)</option>
+                                                                <option value="POLI03">POLI03 (Poli KIA )</option>
+                                                                <option value="POLI04">POLI04 (Poli Gizi)</option>
+                                                                <option value="POLI05">POLI05 (Poli MTBS)</option>
+                                                                <option value="POLI06">POLI06 (Poli Imunisasi)</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
